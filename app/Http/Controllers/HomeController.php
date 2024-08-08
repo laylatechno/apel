@@ -246,7 +246,10 @@ class HomeController extends Controller
     
         return view('front.toko_detail', compact('users', 'related_products', 'title', 'subtitle'));
     }
-    
+    public function produk_detail() {
+            
+            return view('front.produk.detail');
+    }
 
  
 }

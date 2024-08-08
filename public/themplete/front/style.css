@@ -48,15 +48,8 @@
     width: 100%;
 }
 
-.services img{
-    height: 30px;
-    border-radius: 50%;
-    width: 30px;
-}
 
-.services a{
-    color: blue;
-}
+
 .section{
     display: flex;
     justify-content: space-evenly;
@@ -68,6 +61,7 @@
     font-size: 40px;
 }
 .products{
+    
     display: flex;
     justify-content: space-evenly;
     padding-top: 30px;
@@ -81,8 +75,8 @@
     text-decoration: none;
     color: black;
     margin-top: 20px;
-   
-}
+    text-align: center;
+    }
 .product{
     display: flex;
     flex-direction: column;
@@ -96,10 +90,12 @@
 .card-container{
     margin-top: 30px;
     text-align: center;
+    padding-left: 5rem;
+    padding-right: 5rem;
 }
 .card{
     height: 470px;
-    width: 380px;
+   
     text-align: center;
     padding: 20px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -181,7 +177,7 @@
 }
 .menu-items{
     margin-top: 30px;
-    background-color: rgba(0, 0, 0, 0.099);
+    background-color: #00000019;
 }
 .footer p{
     text-align: center;

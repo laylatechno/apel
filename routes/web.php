@@ -29,6 +29,7 @@ use App\Http\Controllers\SocialiteController;
 use App\Http\Controllers\TransaksiController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/produk/{slug}', [HomeController::class, 'produk_detail'])->name('produk.produk_detail');
 Route::get('/informasi', [HomeController::class, 'informasi']);
 Route::get('/informasi/{slug}', [HomeController::class, 'informasi_detail'])->name('informasi.informasi_detail');
 Route::get('/produk_sale', [HomeController::class, 'produk_sale'])->name('produk_sale');

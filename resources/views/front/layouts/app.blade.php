@@ -31,11 +31,7 @@
                 </div>
             </div>
         </div>
-        <div class="offers pt-10">
-            <p>et up to ₹8000 instant savings on selected products with eligible HDFC Bank cards. Plus No Cost EMI from most leading banks.
-                </p>
-            <a href="#">See Offers </a>
-        </div>
+       
             
 
 

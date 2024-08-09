@@ -121,7 +121,7 @@
 }
 
 .card:hover{
-    transform: scale(1.1);
+    transform: scale(1.05);
     cursor: pointer;
 }
 .event-pictures img{
@@ -227,13 +227,11 @@
         height: 25px;
     }
     .offers p{
-        font-size: 12px;
+    
         margin-top: 20px;
         margin-bottom: 20px;
     }
-    .offers a{
-        font-size: 13px;
-    }
+    
     .section{
         display: flex;
         flex-direction: column;

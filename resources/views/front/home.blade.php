@@ -7,7 +7,11 @@
 
 
 
-
+<div class="offers md:pt-10 text-md">
+            <p class="text-sm">et up to ₹8000 instant savings on selected products with eligible HDFC Bank cards. Plus No Cost EMI from most leading banks.
+                </p>
+            <a href="#" class="text-blue-500">See Offers </a>
+        </div>
 <div class="back-video">
     <video autoplay loop muted play-inline>
         <source src="{{ asset('themplete/front') }}/Videos/y2mate.com - iPhone Xr Official Trailer_1080p(1).mp4" type="video/mp4">
@@ -17,43 +21,44 @@
 <div class="section">
     <div class="container flex gap-10">
 
-        <div class="titles">
+        <div class="text-center md:text-start text-lg">
             <h1> Store.The best way to buy theproducts you love. </h1>
         </div>
        
     </div>
 
 </div>
-<div class="products">
-    <div class="container flex justify-between       ">
+<div class="products py-10">
+    <div class="container flex md:justify-between justify-center md:gap-0 w-full flex-wrap items-center gap-3     
+ ">
 
-        <div class="product">
+        <div class="product md:w-[12%] w-[45%] bg-gray-100 border-2 border-gray-200 my-2 items-center p-4 rounded-lg  hover:scale-105 transition duration-300">
             
-            <img src="{{ asset('themplete/front') }}/images/5ec26e0b6c295800046c81db.png" alt="product" class="hover:scale-105 transition duration-300" >
-            <a href="#">Macbook</a>
+            <img src="{{ asset('themplete/front') }}/images/5ec26e0b6c295800046c81db.png" alt="product" class=" w-[80%]" >
+            <a href="#">Mcbook</a>
         </div>
-        <div class="product">
-            <img src="{{ asset('themplete/front') }}/images/airpods-32430.png" alt="product" class="hover:scale-105 transition duration-300">
+        <div class="product md:w-[12%] w-[45%] bg-gray-50 border-2 border-gray-200 my-2 items-center p-4 rounded-lg  hover:scale-105 transition duration-300 ">
+            <img src="{{ asset('themplete/front') }}/images/airpods-32430.png" alt="product" class="">
             <a href="#">AirPods</a>
         </div>
-        <div class="product">
-            <img src="{{ asset('themplete/front') }}/images/Apple-Watch-PNG-Transparent.png" alt="product" class="hover:scale-105 transition duration-300">
+        <div class="product md:w-[12%] w-[45%] bg-gray-50 border-2 border-gray-200 my-2 items-center p-4 rounded-lg  hover:scale-105 transition duration-300">
+            <img src="{{ asset('themplete/front') }}/images/Apple-Watch-PNG-Transparent.png" alt="product" class="">
             <a href="#">iWatch</a>
         </div>
-        <div class="product">
-            <img src="{{ asset('themplete/front') }}/images/darkbomber-552585104b2a15720d3c0b661ce5945c.png" alt="product" class="hover:scale-105 transition duration-300">
+        <div class="product md:w-[12%] w-[45%] bg-gray-50 border-2 border-gray-200 my-2 items-center p-4 rounded-lg  hover:scale-105 transition duration-300">
+            <img src="{{ asset('themplete/front') }}/images/darkbomber-552585104b2a15720d3c0b661ce5945c.png" alt="product" class="">
             <a href="#">I Phone</a>
         </div>
-        <div class="product">
-            <img src="{{ asset('themplete/front') }}/images/61d4a6218b51e20004664d4c.png" alt="product" class="hover:scale-105 transition duration-300">
+        <div class="product md:w-[12%] w-[45%] bg-gray-50 border-2 border-gray-200 my-2 items-center p-4 rounded-lg  hover:scale-105 transition duration-300">
+            <img src="{{ asset('themplete/front') }}/images/61d4a6218b51e20004664d4c.png" alt="product" class="">
             <a href="#">i Pad</a>
         </div>
-        <div class="product">
-            <img src="{{ asset('themplete/front') }}/images/kisspng-apple-macbook-pro-intel-apple-imac-retina-4k-21-5-imac-retina-transparent-amp-png-clipart-free-dow-5cb6725ce50a57.7376126715554607009382.png" alt="product" class="hover:scale-105 transition duration-300">
+        <div class="product md:w-[12%] w-[45%] bg-gray-50 border-2 border-gray-200 my-2 items-center p-4 rounded-lg  hover:scale-105 transition duration-300">
+            <img src="{{ asset('themplete/front') }}/images/kisspng-apple-macbook-pro-intel-apple-imac-retina-4k-21-5-imac-retina-transparent-amp-png-clipart-free-dow-5cb6725ce50a57.7376126715554607009382.png" alt="product" class="">
             <a href="#">Monitor</a>
         </div>
-        <div class="product">
-            <img src="{{ asset('themplete/front') }}/images/pngwing.com(1).png" alt="product" class="hover:scale-105 transition duration-300">
+        <div class="product md:w-[12%] w-[45%] bg-gray-50 border-2 border-gray-200 my-2 items-center p-4 rounded-lg  hover:scale-105 transition duration-300">
+            <img src="{{ asset('themplete/front') }}/images/pngwing.com(1).png" alt="product" class="">
             <a href="#">New Phones</a>
         </div>
     </div>
@@ -79,12 +84,7 @@
             <p style="color: white;">You’ll also save on Apple Pencil, Magic Keyboard for iPad, get 20% off AppleCare+, and more.²</p>
             <img style="height: 180px;" src="{{ asset('themplete/front') }}/images/gsmarena_001.jpg" class="m-auto" alt="iphone">
         </div>
-        <div style="background: black;" class="card w-1/4">
-            <span  class="text-lg text-gray-100">LIMITED TIME OFFER</span>
-            <h1 style="color: white;" class="font-bold text-3xl">MacBook Air 15. Buy Now</h1>
-            <p style="color: white;">You’ll also save on Apple Pencil, Magic Keyboard for iPad, get 20% off AppleCare+, and more.²</p>
-            <img style="height: 180px;" src="{{ asset('themplete/front') }}/images/gsmarena_001.jpg" class="m-auto" alt="iphone">
-        </div>
+   
     </div>
 </div>
 <div class="apple-events">

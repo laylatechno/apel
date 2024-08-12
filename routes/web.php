@@ -69,6 +69,9 @@ Route::put('/profil_pengguna/update_display_pengguna/{id}', [ProfilPenggunaContr
 // Route::get('produk/datatables', [ProdukController::class, 'index'])->name('produk.datatables');
 Route::get('datatables/produk', [ProdukController::class, 'getProdukDatatables'])->name('datatables.produk');
 Route::resource('produk', ProdukController::class);
+Route::post('/produk/upload-gambar/{id}', [ProdukController::class, 'uploadGambar'])->name('produk.upload-gambar');
+
+
 
  
 Route::get('/auth/redirect', [SocialiteController::class,'redirect']);

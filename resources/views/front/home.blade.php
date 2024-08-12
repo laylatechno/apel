@@ -13,9 +13,15 @@
             <a href="#" class="text-blue-500">See Offers </a>
         </div>
 <div class="back-video">
-    <video autoplay loop muted play-inline>
+    {{-- <video autoplay loop muted play-inline>
         <source src="{{ asset('themplete/front') }}/Videos/y2mate.com - iPhone Xr Official Trailer_1080p(1).mp4" type="video/mp4">
-    </video>
+    </video> --}}
+    <iframe src="https://www.youtube.com/embed/zXJbdtxh0XE?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&showinfo=0"
+    style="width: 100%; height: calc(100vw * 9 / 16); max-width: 1920px; max-height: 1080px; margin: 0 auto; display: block; border: none;" 
+    title="YouTube video player" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    allowfullscreen></iframe>
+
 </div>
 
 <div class="section">
@@ -29,15 +35,16 @@
 
 </div>
 <div class="products py-10">
-    <div class="container flex md:justify-between justify-center md:gap-0 w-full flex-wrap items-center gap-3     
- ">
-
+    <div class="container flex md:justify-between justify-center md:gap-0 w-full flex-wrap items-center gap-3">
+        @foreach ($kategori_produk as $p)
         <div class="product md:w-[12%] w-[45%] bg-gray-100 border-2 border-gray-200 my-2 items-center p-4 rounded-lg  hover:scale-105 transition duration-300">
             
-            <img src="{{ asset('themplete/front') }}/images/5ec26e0b6c295800046c81db.png" alt="product" class=" w-[80%]" >
-            <a href="#">Mcbook</a>
+            <img src="/upload/kategori_produk/{{ $p->gambar }}" alt="{{ $p->nama_kategori_produk }}" class=" w-[80%]" >
+            <a href="">{{ $p->nama_kategori_produk }}</a>
         </div>
-        <div class="product md:w-[12%] w-[45%] bg-gray-50 border-2 border-gray-200 my-2 items-center p-4 rounded-lg  hover:scale-105 transition duration-300 ">
+        @endforeach
+        
+        {{-- <div class="product md:w-[12%] w-[45%] bg-gray-50 border-2 border-gray-200 my-2 items-center p-4 rounded-lg  hover:scale-105 transition duration-300 ">
             <img src="{{ asset('themplete/front') }}/images/airpods-32430.png" alt="product" class="">
             <a href="#">AirPods</a>
         </div>
@@ -60,19 +67,25 @@
         <div class="product md:w-[12%] w-[45%] bg-gray-50 border-2 border-gray-200 my-2 items-center p-4 rounded-lg  hover:scale-105 transition duration-300">
             <img src="{{ asset('themplete/front') }}/images/pngwing.com(1).png" alt="product" class="">
             <a href="#">New Phones</a>
-        </div>
+        </div> --}}
     </div>
 </div>
 <div class="card-container   gap-5">
     <h1 class="text-2xl font-medium">The latest. Take a look at what’s new right now. </h1>
     <div class="cards flex justify-center gap-5">
+        @foreach ($produk as $p)
         <div class="card w-1/4">
-            <span class="text-lg text-gray-700">LIMITED TIME OFFER</span>
-            <h1 class="font-bold text-3xl text-gray-900">Save on Mac or iPad for university.</h1>
-            <p class="text-gray-600">You’ll also save on Apple Pencil, Magic Keyboard for iPad</p>
-            <img src="{{ asset('themplete/front') }}/images/Apple_new-macbookair-wallpaper-screen_11102020_big.jpg.large.jpg" class="m-auto" alt="macbook">
+            <span class="text-lg text-red-700"><b>{{ $p->kategoriProduk->nama_kategori_produk }}</b></span>
+            <a href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">
+            <h1 class="font-bold text-3xl text-gray-900">{{ $p->nama_produk }}.</h1>
+            <p class="text-gray-600"><b>Rp. {{ number_format($p->harga_jual, 0, ',', '.') }}</b></p>
+            <a href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">
+                <img src="/upload/produk/{{ $p->gambar }}" class="m-auto" alt="{{ $p->nama_produk }}">
+            </a>
+         
         </div>
-        <div class="card w-1/4">
+        @endforeach
+        {{-- <div class="card w-1/4">
             <span class="text-lg text-gray-700">LIMITED TIME OFFER</span>
             <h1 class="font-bold text-3xl text-gray-900">MacBook Air 15</h1>
             <p class="text-gray-600 ">You’ll also save on Apple Pencil, Magic Keyboard for iPad</p>
@@ -83,7 +96,7 @@
             <h1 style="color: white;" class="font-bold text-3xl">MacBook Air 15. Buy Now</h1>
             <p style="color: white;">You’ll also save on Apple Pencil, Magic Keyboard for iPad, get 20% off AppleCare+, and more.²</p>
             <img style="height: 180px;" src="{{ asset('themplete/front') }}/images/gsmarena_001.jpg" class="m-auto" alt="iphone">
-        </div>
+        </div> --}}
    
     </div>
 </div>

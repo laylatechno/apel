@@ -2,171 +2,241 @@
 @section('title', $title)
 @section('subtitle', $subtitle)
  
-
-<style>
-    .price-wrapper {
-        min-height: 60px;
-        /* Adjust this value based on your layout */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .price-wrapper .original-price {
-        font-size: smaller;
-        text-decoration: line-through;
-    }
-
-
-    .video-container {
-        position: relative;
-        width: 100%;
-        padding-bottom: 56.25%;
-        /* Rasio aspek 16:9 untuk video */
-        overflow: hidden;
-        max-width: 100%;
-    }
-
-    .video-container iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-</style>
+ 
 
 @section('content')
-    <!-- Header Area -->
-    <div class="header-area" id="headerArea">
-        <div class="container">
-            <!-- Header Content -->
-            <div class="header-content position-relative d-flex align-items-center justify-content-between">
-                <!-- Back Button -->
-                <div class="back-button">
-                    <a href="{{ route('toko.toko_detail', $produk->user->user) }}">
-                        <i class="bi bi-arrow-left-short"></i>
-                    </a>
-                </div>
-
-                <!-- Page Title -->
-                <div class="page-heading">
-                    <h6 class="mb-0">{{ $subtitle }} - {{ $profil->nama_perusahaan }}</h6>
-                </div>
-
-                <!-- Settings -->
-                <div class="setting-wrapper">
-                    <div class="navbar--toggler" id="affanNavbarToggler" data-bs-toggle="offcanvas"
-                        data-bs-target="#affanOffcanvas" aria-controls="affanOffcanvas">
-                        <span class="d-block"></span>
-                        <span class="d-block"></span>
-                        <span class="d-block"></span>
-                    </div>
-                </div>
+<div class="bg-white">
+    <div class="pt-6">
+      <nav aria-label="Breadcrumb">
+        <ol role="list" class="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+          <li>
+            <div class="flex items-center">
+              <a href="#" class="mr-2 text-sm font-medium text-gray-900">Men</a>
+              <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="h-5 w-4 text-gray-300">
+                <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+              </svg>
             </div>
+          </li>
+          <li>
+            <div class="flex items-center">
+              <a href="#" class="mr-2 text-sm font-medium text-gray-900">Clothing</a>
+              <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="h-5 w-4 text-gray-300">
+                <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+              </svg>
+            </div>
+          </li>
+  
+          <li class="text-sm">
+            <a href="#" aria-current="page" class="font-medium text-gray-500 hover:text-gray-600">Basic Tee 6-Pack</a>
+          </li>
+        </ol>
+      </nav>
+  
+      <!-- Image gallery -->
+      <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl">
+       
+       
+          <div class=" overflow-hidden rounded-lg">
+            <img src="https://cdnpro.eraspace.com/media/catalog/product/m/a/macbook_air_m1_space_gray_1.jpg" alt="Model wearing plain gray basic tee." class="h-full w-full object-cover object-center">
+          </div>
         </div>
-    </div>
-
-    <div class="page-content-wrapper py-3">
-        <div class="container">
-            <div class="card product-details-card mb-3">
-                <div class="card-body">
-                    <div class="product-gallery-wrapper">
-                        <div class="product-gallery gallery-img">
-                            <a href="/upload/produk/{{ $produk->gambar }}" class="image-zooming-in-out" title="Product One"
-                                data-gall="gallery2">
-                                <img class="rounded" src="/upload/produk/{{ $produk->gambar }}" alt="">
-                            </a>
-                            <a href="/upload/profil/{{ $profil->logo }}" class="image-zooming-in-out" title="Product Two"
-                                data-gall="gallery2">
-                                <img class="rounded" src="/upload/profil/{{ $profil->logo }}" alt="">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card product-details-card mb-3 direction-rtl">
-                <div class="card-body">
-                    <a href="{{ route('toko.toko_detail', $produk->user->user) }}">
-                        <span class="badge bg-danger mb-3">@ {{ $produk->user->user }}</span>
-                    </a>
-                    <h2>{{ $produk->nama_produk }}</h2>
-                    <h4>Rp. {{ number_format($produk->harga_jual, 0, ',', '.') }}</h4>
-                    <p>{!! $produk->deskripsi !!}</p>
-                    <hr>
-
-                    <form class="add-to-cart-form" data-product-id="{{ $produk->id }}">
-                        @csrf
-                        <div class="row">
-                            <div class="col-6">
-                                <input class="form-control" type="number" value="1" name="quantity">
-                            </div>
-                            <div class="col-6">
-                                <button class="btn btn-primary rounded-pill btn-sm w-100" type="button"><i class="bi bi-basket"></i> Add to Cart</button>
-                            </div>
-                        </div>
-                        
-                    </form>
-                    <hr>
-                    @if (!empty($produk->youtube))
-                        <div class="video-container">
-                            <iframe class="embed-responsive-item"
-                                src="https://www.youtube.com/embed/{{ $produk->youtube }}?autoplay=1&rel=0&mute=1"
-                                allowfullscreen allow="autoplay; encrypted-media" frameborder="0" loading="lazy">
-                            </iframe>
-                        </div>
-                    @else
-                        <p>Tidak ada video YouTube yang tersedia.</p>
-                    @endif
-                </div>
-            </div>
-
-            <div class="card product-details-card mb-2 direction-rtl">
-                <div class="card-body">
-                    <h5 class="mb-3">Bagikan :</h5>
-                    <div class="custom-container">
-                        <!-- Register Form -->
-                        <div class="register-form">
-                            <div class="row">
-                                {{-- <div class="col-12">
-                                    <a class="btn btn-primary btn-facebook mb-3 w-100"
-                                        href="https://www.facebook.com/sharer/sharer.php?u={{ route('produk_sale.produk_sale_detail', $produk->slug) }}">
-                                        <i class="bi bi-facebook me-1"></i> Bagikan Ke Facebook
-                                    </a>
-                                    <a class="btn btn-primary btn-twitter mb-3 w-100"
-                                        href="https://twitter.com/intent/tweet?url={{ route('produk_sale.produk_sale_detail', $produk->slug) }}">
-                                        <i class="bi bi-twitter me-1"></i> Bagikan Ke Twitter
-                                    </a>
-                                    <a class="btn btn-success btn-whatsapp mb-3 w-100"
-                                        href="https://wa.me/?text={{ route('produk_sale.produk_sale_detail', $produk->slug) }}">
-                                        <i class="bi bi-whatsapp me-1"></i> Bagikan Ke Whatsapp
-                                    </a>
-                                </div> --}}
-
-                                <div class="col-12">
-                                    <a class="btn btn-primary btn-facebook mb-3 w-100"
-                                        href="https://www.facebook.com/sharer/sharer.php?u={{ request()->fullUrl() }}">
-                                        <i class="bi bi-facebook me-1"></i> Bagikan Ke Facebook
-                                    </a>
-                                    <a class="btn btn-primary btn-twitter mb-3 w-100"
-                                        href="https://twitter.com/intent/tweet?url={{ request()->fullUrl() }}">
-                                        <i class="bi bi-twitter me-1"></i> Bagikan Ke Twitter
-                                    </a>
-                                    <a class="btn btn-success btn-whatsapp mb-3 w-100"
-                                        href="https://wa.me/?text={{ request()->fullUrl() }}">
-                                        <i class="bi bi-whatsapp me-1"></i> Bagikan Ke Whatsapp
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-            </div>
-
-            {{-- produk terkait --}}
+      
+      </div>
+  
+      <!-- Product info -->
+      <div class="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
+        <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+          <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Macbook Air M1</h1>
         </div>
+  
+        <!-- Options -->
+        <div class="mt-4 lg:row-span-3 lg:mt-0">
+          <h2 class="sr-only">Product information</h2>
+          <p class="text-3xl tracking-tight text-gray-900">$900</p>
+  
+          <!-- Reviews -->
+          <div class="mt-6">
+            <h3 class="sr-only">Reviews</h3>
+            <div class="flex items-center">
+              <div class="flex items-center">
+                <!-- Active: "text-gray-900", Default: "text-gray-200" -->
+                <svg class="h-5 w-5 flex-shrink-0 text-gray-900" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+                </svg>
+                <svg class="h-5 w-5 flex-shrink-0 text-gray-900" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+                </svg>
+                <svg class="h-5 w-5 flex-shrink-0 text-gray-900" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+                </svg>
+                <svg class="h-5 w-5 flex-shrink-0 text-gray-900" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+                </svg>
+                <svg class="h-5 w-5 flex-shrink-0 text-gray-200" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <p class="sr-only">4 out of 5 stars</p>
+            
+            </div>
+          </div>
+  
+          <form class="mt-10">
+            <!-- Colors -->
+            <div>
+              <h3 class="text-sm font-medium text-gray-900">Color</h3>
+  
+              <fieldset aria-label="Choose a color" class="mt-4">
+                <div class="flex items-center space-x-3">
+                  <!-- Active and Checked: "ring ring-offset-1" -->
+                  <label aria-label="White" class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 ring-gray-400 focus:outline-none">
+                    <input type="radio" name="color-choice" value="White" class="sr-only">
+                    <span aria-hidden="true" class="h-8 w-8 rounded-full border border-black border-opacity-10 bg-white"></span>
+                  </label>
+                  <!-- Active and Checked: "ring ring-offset-1" -->
+                  <label aria-label="Gray" class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 ring-gray-400 focus:outline-none">
+                    <input type="radio" name="color-choice" value="Gray" class="sr-only">
+                    <span aria-hidden="true" class="h-8 w-8 rounded-full border border-black border-opacity-10 bg-gray-200"></span>
+                  </label>
+                  <!-- Active and Checked: "ring ring-offset-1" -->
+                  <label aria-label="Black" class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 ring-gray-900 focus:outline-none">
+                    <input type="radio" name="color-choice" value="Black" class="sr-only">
+                    <span aria-hidden="true" class="h-8 w-8 rounded-full border border-black border-opacity-10 bg-gray-900"></span>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+  
+            <!-- Sizes -->
+            <div class="mt-10">
+              <div class="flex items-center justify-between">
+                <h3 class="text-sm font-medium text-gray-900">Spesifikasi</h3>
+                <a href="#" class="text-sm font-medium text-green-600 hover:text-indigo-500">information</a>
+              </div>
+  
+              <fieldset aria-label="Choose a size" class="mt-4">
+                <div class="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
+                  <!-- Active: "ring-2 ring-indigo-500" -->
+                  <label class="group relative flex cursor-not-allowed items-center justify-center rounded-md border bg-gray-50 px-4 py-3 text-sm font-medium uppercase text-gray-200 hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
+                    <input type="radio" name="size-choice" value="XXS" disabled class="sr-only">
+                    <span>8/128</span>
+                    <span aria-hidden="true" class="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200">
+                      <svg class="absolute inset-0 h-full w-full stroke-2 text-gray-200" viewBox="0 0 100 100" preserveAspectRatio="none" stroke="currentColor">
+                        <line x1="0" y1="100" x2="100" y2="0" vector-effect="non-scaling-stroke" />
+                      </svg>
+                    </span>
+                  </label>
+                  <!-- Active: "ring-2 ring-indigo-500" -->
+                  <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
+                    <input type="radio" name="size-choice" value="XS" class="sr-only">
+                    <span>8/256</span>
+                    <!--
+                      Active: "border", Not Active: "border-2"
+                      Checked: "border-indigo-500", Not Checked: "border-transparent"
+                    -->
+                    <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                  </label>
+                  <!-- Active: "ring-2 ring-indigo-500" -->
+                  <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
+                    <input type="radio" name="size-choice" value="S" class="sr-only">
+                    <span>8/512</span>
+                    <!--
+                      Active: "border", Not Active: "border-2"
+                      Checked: "border-indigo-500", Not Checked: "border-transparent"
+                    -->
+                    <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                  </label>
+                  <!-- Active: "ring-2 ring-indigo-500" -->
+                  <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
+                    <input type="radio" name="size-choice" value="M" class="sr-only">
+                    <span>8/1TB</span>
+                    <!--
+                      Active: "border", Not Active: "border-2"
+                      Checked: "border-indigo-500", Not Checked: "border-transparent"
+                    -->
+                    <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                  </label>
+                  <!-- Active: "ring-2 ring-indigo-500" -->
+                  <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
+                    <input type="radio" name="size-choice" value="L" class="sr-only">
+                    <span>16/128</span>
+                    <!--
+                      Active: "border", Not Active: "border-2"
+                      Checked: "border-indigo-500", Not Checked: "border-transparent"
+                    -->
+                    <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                  </label>
+                  <!-- Active: "ring-2 ring-indigo-500" -->
+                  <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
+                    <input type="radio" name="size-choice" value="XL" class="sr-only">
+                    <span>16/512</span>
+                    <!--
+                      Active: "border", Not Active: "border-2"
+                      Checked: "border-indigo-500", Not Checked: "border-transparent"
+                    -->
+                    <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                  </label>
+                  <!-- Active: "ring-2 ring-indigo-500" -->
+                  <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
+                    <input type="radio" name="size-choice" value="2XL" class="sr-only">
+                    <span>16/1TB</span>
+                    <!--
+                      Active: "border", Not Active: "border-2"
+                      Checked: "border-indigo-500", Not Checked: "border-transparent"
+                    -->
+                    <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                  </label>
+                  <!-- Active: "ring-2 ring-indigo-500" -->
+                  <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
+                    <input type="radio" name="size-choice" value="3XL" class="sr-only">
+                    <span>16/2TB</span>
+                    <!--
+                      Active: "border", Not Active: "border-2"
+                      Checked: "border-indigo-500", Not Checked: "border-transparent"
+                    -->
+                    <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+  
+            <a href=""  class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-green-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Chats On Whatsapp</a>
+          </form>
+        </div>
+  
+        <div class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
+          <!-- Description and details -->
+          <div>
+            <h3 class="sr-only">Description</h3>
+  
+            <div class="space-y-6">
+              <p class="text-base text-gray-900">The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: &quot;Black&quot;. Need to add an extra pop of color to your outfit? Our white tee has you covered.</p>
+            </div>
+          </div>
+  
+          <div class="mt-10">
+            <h3 class="text-sm font-medium text-gray-900">Highlights</h3>
+  
+            <div class="mt-4">
+              <ul role="list" class="list-disc space-y-2 pl-4 text-sm">
+                <li class="text-gray-400"><span class="text-gray-600">Hand cut and sewn locally</span></li>
+                <li class="text-gray-400"><span class="text-gray-600">Dyed with our proprietary colors</span></li>
+                <li class="text-gray-400"><span class="text-gray-600">Pre-washed &amp; pre-shrunk</span></li>
+                <li class="text-gray-400"><span class="text-gray-600">Ultra-soft 100% cotton</span></li>
+              </ul>
+            </div>
+          </div>
+  
+          <div class="mt-10">
+            <h2 class="text-sm font-medium text-gray-900">Details</h2>
+  
+            <div class="mt-4 space-y-6">
+              <p class="text-sm text-gray-600">The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming &quot;Charcoal Gray&quot; limited release.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
 @endsection

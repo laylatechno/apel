@@ -21,7 +21,7 @@
                     <li> Services </li>
                     <li> Features </li>
                     <li> Promo </li>
-                    <li>  Location </li>
+                    <li> Location </li>
                    <img  class="cross" src="{{ asset('themplete/front') }}/images/close-116-512.png" alt="cross">
                 </ul>
                 <div class="nav-icons flex">

@@ -41,7 +41,7 @@
                                 <th data-priority="3">User</th>
                                 <th data-priority="8">Urutan</th>
                                 <th data-priority="6">Gambar</th>
-                                <th data-priority="7">Aksi</th>
+                                <th data-priority="7" width="20%">Aksi</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -268,8 +268,8 @@
                                     <div class="col-12">
                                         <div class="form-group" id="youtube_container">
                                             <label for="youtube">Embed Youtube</label>
-                                            <input type="text" class="form-control" name="youtube"
-                                                id="youtube" placeholder="Embed Youtube">
+                                            <input type="text" class="form-control" name="youtube" id="youtube"
+                                                placeholder="Embed Youtube">
                                         </div>
                                     </div>
 
@@ -510,8 +510,8 @@
                                     <div class="col-12">
                                         <div class="form-group" id="youtube_edit_container">
                                             <label for="youtube_edit">Embed Youtube</label>
-                                            <input type="text" class="form-control" name="youtube"
-                                                id="youtube_edit" placeholder="Embed Youtube">
+                                            <input type="text" class="form-control" name="youtube" id="youtube_edit"
+                                                placeholder="Embed Youtube">
                                         </div>
                                     </div>
                                 </div>
@@ -563,6 +563,33 @@
             <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
+    </div>
+
+    <!-- Tambahkan modal untuk upload gambar -->
+    <div class="modal fade" id="modal-gambar" tabindex="-1" role="dialog" aria-labelledby="modalGambarLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="uploadGambarForm" action="{{ url('produk/upload-gambar') }}" method="POST"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="produk_id" id="produk_id">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalGambarLabel">Upload Gambar Produk</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="file" name="gambar[]" multiple class="form-control">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
 
@@ -670,6 +697,8 @@
         });
     </script>
 
+
+
     {{-- <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script> --}}
     <script>
         $(document).ready(function() {
@@ -755,6 +784,15 @@
                     }
                 ]
             });
+
+            $('#produkTable').on('click', '.btn-gambar', function() {
+                var id = $(this).data('id');
+                $('#uploadGambarForm').attr('action', '{{ route('produk.upload-gambar', '') }}/' + id);
+
+
+            });
+
+
         });
     </script>
 

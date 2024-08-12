@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gambar;
 use App\Models\KategoriProduk;
 use App\Models\LogHistori;
 use Illuminate\Support\Facades\Hash;
@@ -52,13 +53,13 @@ class ProdukController extends Controller
         if ($request->ajax()) {
             $isAdmin = auth()->user()->role === 'administrator';
             $userId = auth()->id(); // Id pengguna yang sedang login
-    
+
             if ($isAdmin) {
                 $data = Produk::with(['kategoriProduk', 'user'])->get();
             } else {
                 $data = Produk::where('user_id', $userId)->with(['kategoriProduk', 'user'])->get();
             }
-    
+
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('kategori', function ($p) {
@@ -72,22 +73,27 @@ class ProdukController extends Controller
                 })
                 ->addColumn('aksi', function ($p) {
                     $editBtn = '<a href="#" class="btn btn-sm btn-warning btn-edit" data-toggle="modal"
-                                    data-target="#modal-edit" data-id="' . $p->id . '" style="color: black">
-                                    <i class="fas fa-edit"></i> Edit
-                                </a>';
+                                data-target="#modal-edit" data-id="' . $p->id . '" style="color: black">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>';
                     $deleteBtn = '<button class="btn btn-sm btn-danger btn-hapus" data-id="' . $p->id . '"
-                                    style="color: white">
-                                    <i class="fas fa-trash"></i> Delete
-                                </button>';
-                    return $editBtn . ' ' . $deleteBtn;
+                                style="color: white">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>';
+                    $gambarBtn = '<a href="#" class="btn btn-sm btn-info btn-gambar" data-toggle="modal" 
+                                data-target="#modal-gambar" data-id="' . $p->id . '">
+                                <i class="fas fa-images"></i> Gambar
+                            </a>';
+                    return $editBtn . ' ' . $gambarBtn . ' ' . $deleteBtn;
                 })
                 ->rawColumns(['aksi'])
                 ->make(true);
         }
-    
+
         return response()->json(['error' => 'Unauthorized access'], 403); // Menangani akses tidak sah
     }
-    
+
+
 
 
 
@@ -96,9 +102,7 @@ class ProdukController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-    }
+    public function create() {}
 
 
 
@@ -213,6 +217,78 @@ class ProdukController extends Controller
         return redirect('/produk')->with('message', 'Data berhasil ditambahkan');
     }
 
+    public function uploadGambar(Request $request, $id)
+{
+    dd($request->all()); // Debugging
+        $produk = Produk::find($id);
+
+        if (!$produk) {
+            return redirect()->back()->withErrors('Produk tidak ditemukan');
+        }
+
+        $request->validate([
+            'gambar.*' => 'image|mimes:jpeg,jpg,png|max:6144',
+        ]);
+
+        if ($request->hasFile('gambar')) {
+            foreach ($request->file('gambar') as $image) {
+                $destinationPath = 'upload/produk/';
+
+                // Mengambil nama file asli dan ekstensinya
+                $originalFileName = $image->getClientOriginalName();
+
+                // Membaca tipe MIME dari file gambar
+                $imageMimeType = $image->getMimeType();
+
+                // Menyaring hanya tipe MIME gambar yang didukung (misalnya, image/jpeg, image/png, dll.)
+                if (strpos($imageMimeType, 'image/') === 0) {
+                    // Menggabungkan waktu dengan nama file asli
+                    $imageName = date('YmdHis') . '_' . str_replace(' ', '_', $originalFileName);
+
+                    // Simpan gambar asli ke tujuan yang diinginkan
+                    $image->move($destinationPath, $imageName);
+
+                    // Path gambar asli
+                    $sourceImagePath = public_path($destinationPath . $imageName);
+
+                    // Path untuk menyimpan gambar WebP
+                    $webpImagePath = $destinationPath . pathinfo($imageName, PATHINFO_FILENAME) . '.webp';
+
+                    // Membaca gambar asli dan mengonversinya ke WebP jika tipe MIME-nya didukung
+                    switch ($imageMimeType) {
+                        case 'image/jpeg':
+                            $sourceImage = @imagecreatefromjpeg($sourceImagePath);
+                            break;
+                        case 'image/png':
+                            $sourceImage = @imagecreatefrompng($sourceImagePath);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    // Jika gambar asli berhasil dibaca
+                    if ($sourceImage !== false) {
+                        // Membuat gambar baru dalam format WebP
+                        imagewebp($sourceImage, $webpImagePath);
+
+                        // Hapus gambar asli dari memori
+                        imagedestroy($sourceImage);
+
+                        // Hapus file asli setelah konversi selesai
+                        @unlink($sourceImagePath);
+
+                        // Simpan data gambar ke tabel gambar
+                        Gambar::create([
+                            'produk_id' => $produk->id,
+                            'gambar' => pathinfo($imageName, PATHINFO_FILENAME) . '.webp',
+                        ]);
+                    }
+                }
+            }
+        }
+
+        return redirect()->back()->with('message', 'Gambar berhasil diupload');
+    }
 
 
 

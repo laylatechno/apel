@@ -7,7 +7,7 @@
 @section('content')
 <div class="bg-white">
     <div class="pt-6">
-      <nav aria-label="Breadcrumb">
+      {{-- <nav aria-label="Breadcrumb">
         <ol role="list" class="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
           <li>
             <div class="flex items-center">
@@ -30,14 +30,15 @@
             <a href="#" aria-current="page" class="font-medium text-gray-500 hover:text-gray-600">Basic Tee 6-Pack</a>
           </li>
         </ol>
-      </nav>
+      </nav> --}}
   
       <!-- Image gallery -->
       <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl">
        
        
           <div class=" overflow-hidden rounded-lg">
-            <img src="https://cdnpro.eraspace.com/media/catalog/product/m/a/macbook_air_m1_space_gray_1.jpg" alt="Model wearing plain gray basic tee." class="h-full w-full object-cover object-center">
+            <img src="/upload/produk/{{ $produk->gambar }}" alt="" style="width: 50%; height: auto; object-fit: cover; object-position: center;">
+
           </div>
         </div>
       
@@ -46,13 +47,14 @@
       <!-- Product info -->
       <div class="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
         <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-          <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Macbook Air M1</h1>
+          <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{{ $produk->nama_produk }}</h1>
         </div>
   
         <!-- Options -->
         <div class="mt-4 lg:row-span-3 lg:mt-0">
           <h2 class="sr-only">Product information</h2>
-          <p class="text-3xl tracking-tight text-gray-900">$900</p>
+          <p class="text-3xl tracking-tight text-gray-900">Rp. {{ number_format($produk->harga_jual, 0, ',', '.') }}</p>
+
   
           <!-- Reviews -->
           <div class="mt-6">

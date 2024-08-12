@@ -582,6 +582,16 @@
                     </div>
                     <div class="modal-body">
                         <input type="file" name="gambar[]" multiple class="form-control">
+                        <table class="table table-striped table-gambar mt-4">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Gambar</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -1079,4 +1089,103 @@
         });
     </script>
     {{-- PERINTAH DELETE DATA --}}
+
+    {{-- PERINTAH PRODUK GAMBAR --}}
+    <script>
+        $(function() {
+            $('.table').on('click', 'tr td .btn-gambar', function() {
+                const t = $(this)
+                const id = t.data('id')
+
+                $.ajax({
+                    url: `{{ url('produk') }}/${id}/gambar`,
+                    type: 'GET',
+                    beforeSend: function() {
+                        t.prop('disabled', true);
+                        $('.table-gambar tbody').html(`<tr><td colspan="3" class="text-center">Belum ada gambar</td></tr>`)
+                    },
+                    success: function(response) {
+                        setTableGambar(response.data)
+
+                        $('#modal-gambar').modal('show')
+                    },
+
+                    complete: function() {
+                        t.prop('disabled', false);
+                    },
+                    error: function(xhr) {
+                        if (xhr.status !== 422) {
+                        }
+                        var errorMessages = xhr.responseJSON.errors;
+                        var errorMessage = '';
+                        $.each(errorMessages, function(key, value) {
+                            errorMessage += value + '<br>';
+                        });
+                        Swal.fire({
+                            title: 'Error!',
+                            html: errorMessage,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            })
+
+            $('.table-gambar').on('click', 'tr td .btn-delete-gambar', function() {
+                const t = $(this)
+                const id = t.data('id')
+                
+                $.ajax({
+                    url: `{{ url('produk/gambar/') }}/${id}`,
+                    type: 'POST',
+                    data: {_method: 'delete', _token: '{{ csrf_token() }}'},
+                    beforeSend: function() {
+                        t.prop('disabled', true);
+                    },
+                    success: function(response) {
+                        setTableGambar(response.data)
+                    },
+
+                    complete: function() {
+                        t.prop('disabled', false);
+                    },
+                    error: function(xhr) {
+                        if (xhr.status !== 422) {
+                            // $('#form-tambah').trigger('reset');
+                        }
+                        var errorMessages = xhr.responseJSON.errors;
+                        var errorMessage = '';
+                        $.each(errorMessages, function(key, value) {
+                            errorMessage += value + '<br>';
+                        });
+                        Swal.fire({
+                            title: 'Error!',
+                            html: errorMessage,
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            })
+
+            function setTableGambar(data) {
+                
+                let gambar = '';
+
+                $.each(data, function(i, item) {
+                    gambar += `<tr>
+                                <td class="text-center" width="1%">${i+1}</td>
+                                <td class="text-center"><img src="upload/produk/${item.gambar}" style="max-width:100%;max-height:100px" /></td>
+                                <td class="text-center"><button type="button" class="btn btn-danger btn-delete-gambar" data-id="${item.id}" title="Hapus Gambar"><i class="fas fa-times"></i></button></td>
+                            </tr>`
+                })
+
+                if (data.length > 0) {
+                    $('.table-gambar tbody').html(gambar)
+                } else {
+                    $('.table-gambar tbody').html(`<tr><td colspan="3" class="text-center">Belum ada gambar</td></tr>`)
+                }
+            }
+        })
+    </script>
 @endpush

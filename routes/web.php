@@ -70,6 +70,8 @@ Route::put('/profil_pengguna/update_display_pengguna/{id}', [ProfilPenggunaContr
 Route::get('datatables/produk', [ProdukController::class, 'getProdukDatatables'])->name('datatables.produk');
 Route::resource('produk', ProdukController::class);
 Route::post('/produk/upload-gambar/{id}', [ProdukController::class, 'uploadGambar'])->name('produk.upload-gambar');
+Route::get('/produk/{produk}/gambar', [ProdukController::class, 'getGambar'])->name('produk.gambar.get');
+Route::delete('/produk/gambar/{id}', [ProdukController::class, 'deleteGambar'])->name('produk.delete.gambar');
 
 
 

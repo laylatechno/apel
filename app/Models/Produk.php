@@ -21,5 +21,8 @@ class Produk extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    
+    public function gambar()
+    {
+        return $this->hasMany(Gambar::class, 'produk_id', 'id');
+    }
 }

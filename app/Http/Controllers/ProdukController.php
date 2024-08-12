@@ -80,10 +80,10 @@ class ProdukController extends Controller
                                 style="color: white">
                                 <i class="fas fa-trash"></i> Delete
                             </button>';
-                    $gambarBtn = '<a href="#" class="btn btn-sm btn-info btn-gambar" data-toggle="modal" 
-                                data-target="#modal-gambar" data-id="' . $p->id . '">
+                    $gambarBtn = '<button type="button" class="btn btn-sm btn-info btn-gambar" data-id="' . $p->id . '">
                                 <i class="fas fa-images"></i> Gambar
-                            </a>';
+                            </button>';
+
                     return $editBtn . ' ' . $gambarBtn . ' ' . $deleteBtn;
                 })
                 ->rawColumns(['aksi'])
@@ -218,8 +218,8 @@ class ProdukController extends Controller
     }
 
     public function uploadGambar(Request $request, $id)
-{
-    dd($request->all()); // Debugging
+    {
+    // dd($request->all()); // Debugging
         $produk = Produk::find($id);
 
         if (!$produk) {
@@ -231,6 +231,8 @@ class ProdukController extends Controller
         ]);
 
         if ($request->hasFile('gambar')) {
+            $insertGambar = [];
+
             foreach ($request->file('gambar') as $image) {
                 $destinationPath = 'upload/produk/';
 
@@ -278,16 +280,63 @@ class ProdukController extends Controller
                         @unlink($sourceImagePath);
 
                         // Simpan data gambar ke tabel gambar
-                        Gambar::create([
+                        // Gambar::create([
+                        //     'produk_id' => $produk->id,
+                        //     'gambar' => pathinfo($imageName, PATHINFO_FILENAME) . '.webp',
+                        // ]);
+
+                        $insertGambar[] = [
                             'produk_id' => $produk->id,
                             'gambar' => pathinfo($imageName, PATHINFO_FILENAME) . '.webp',
-                        ]);
+                            'created_at' => now(),
+                            'updated_at' => now()
+                        ];
                     }
                 }
+            }
+
+            if (count($insertGambar) > 0) {
+                // Gambar::where('produk_id', $produk->id)->each(function ($q) {
+                //     $file = 'upload/produk/' . $q->gambar;
+
+                //     if (file_exists($file)) {
+                //         unlink($file);
+                //     }
+
+                //     $q->delete();
+                // });
+
+                Gambar::insert($insertGambar);
             }
         }
 
         return redirect()->back()->with('message', 'Gambar berhasil diupload');
+    }
+
+    public function getGambar($produkId)
+    {
+        $gambar = Gambar::where('produk_id', $produkId)->get();
+
+        return response()->json(['data' => $gambar]);
+    }
+
+    public function deleteGambar($id)
+    {
+        $gambar = Gambar::find($id);
+
+        if (!$gambar) {
+            return response()->json(['message' => 'Gambar tidak ditemukan'], 404);
+        }
+
+        $file = 'upload/produk/' . $gambar->gambar;
+
+        if (file_exists($file)) {
+            unlink($file);
+        }
+
+        $gambar->delete();
+
+        return response()->json(['message' => 'Gambar berhasil dihapus', 'data' => Gambar::where('produk_id', $gambar->produk_id)->get()]);
     }
 
 

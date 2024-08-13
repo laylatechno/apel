@@ -33,15 +33,33 @@
       </nav> --}}
   
       <!-- Image gallery -->
-      <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl">
+      <div class="mx-auto mt-6 w-full  flex flex-wrap max-w-7xl ">
        
        
-          <div class=" overflow-hidden rounded-lg">
-            <img src="/upload/produk/{{ $produk->gambar }}" alt="" style="width: 50%; height: auto; object-fit: cover; object-position: center;">
+          <div class=" overflow-hidden rounded-lg w-2/3">
+          <img id="mainImage" src="/upload/produk/{{ $produk->gambar }}" alt="" style="width: 100%; height: full; object-fit: cover; object-position: center;">
+
 
           </div>
+          <div class="mt-4 flex flex-col items-center justify-start px-3 mx-auto">
+            <img id="mainImage" src="/upload/produk/{{ $produk->gambar }}" alt="" class="thumbnail rounded-lg border border-gray-300  my-3 w-[150px] h-1/5 object-center bg-cover" style=" object-fit: cover; cursor: pointer;">
+            @forelse ($produk->gambars as $image )
+              
+   
+            <img src="/upload/produk/{{ $image->gambar }}" alt="" class="thumbnail rounded-lg border border-gray-300  my-3 w-[150px] h-1/5 object-center bg-cover" style=" object-fit: cover; cursor: pointer;">
+            @empty
+              
+            @endforelse
+           
+        </div>  
         </div>
-      
+        <!-- <div class="mt-4 flex space-x-4">
+        @foreach($produk->gambars as $image)
+            <img src="/upload/produk/{{ $image->gambar }}" alt="" class="thumbnail" style="width: 80px; height: 80px; object-fit: cover; cursor: pointer;">
+        @endforeach
+    </div>
+       -->
+    </div>
       </div>
   
       <!-- Product info -->
@@ -240,5 +258,14 @@
       </div>
     </div>
   </div>
-
+  <!-- jquery cdn -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+        $('.thumbnail').on('click', function(){
+            var newSrc = $(this).attr('src');
+            $('#mainImage').attr('src', newSrc);
+        });
+    });
+</script>
 @endsection

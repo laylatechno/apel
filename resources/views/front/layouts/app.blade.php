@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/upload/profil/{{ $profil->favicon }}">
     @vite('resources/css/app.css')
 </head>
+
 <body>
     <div class="">
         <div class="navbar w-full flex justify-around">
@@ -17,7 +19,7 @@
                     <img src="/upload/profil/{{ $profil->gambar }}" alt="logo" width="80px;">
                 </div>
                 <ul id="nav-list">
-                    <li> Product  </li>
+                    <li> Product </li>
                     <li> Services </li>
                     <li> Features </li>
                     <li> Promo </li>
@@ -31,16 +33,6 @@
                 </div>
             </div>
         </div>
-       
-            
-
-
-
-
-
-
-
-            @yield('content')
 
 
 
@@ -49,76 +41,87 @@
 
 
 
-            <div class="bg-[#00000019]">
 
-                <div class="container">
-            
-                    <div class="flex  py-10  flex-wrap " >
-            <div class="w-full md:w-1/5 text-center pt-5">
-                <p>Apple Online Store</p>
-                <img src="{{ asset('themplete/front/images/png-apple-logo-9711.png') }}" class="w-16 h-10 mx-auto" alt="logo">
-            </div>
-            <div class="flex justify-around flex-wrap w-full md:w-4/5 gap-16">
-                <ul class="space-y-2">
-                    <li class="font-bold">Shop and Learn</li>
-                    <li>Store</li>
-                    <li>Mac</li>
-                    <li>iPad</li>
-                    <li>iPhone</li>
-                    <li>Watch</li>
-                    <li>AirPods</li>
-                    <li>TV & Home</li>
-                    <li>AirTag</li>
-                </ul>
-                <ul class="space-y-2">
-                    <li class="font-bold">Apple Podcasts</li>
-                    <li>Account</li>
-                    <li>Manage Your Apple ID</li>
-                    <li>Apple Store Account</li>
-                    <li>iCloud.com</li>
-                    <li>Entertainment</li>
-                    <li>Apple TV+</li>
-                    <li>Apple Music</li>
-                    <li>Apple Arcade</li>
-                </ul>
-                <ul class="space-y-2">
-                    <li class="font-bold">Apple Values</li>
-                    <li>Accessibility</li>
-                    <li>Environment</li>
-                    <li>Privacy</li>
-                    <li>Supplier Responsibility</li>
-                    <li>About Apple</li>
-                    <li>Newsroom</li>
-                    <li>Apple Leadership</li>
-                    <li>Career Opportunities</li>
-                    <li>Ethics & Compliance</li>
-                    <li>Events</li>
-                    <li>Contact Apple</li>
-                </ul>
-            </div>
-            </div>
+        @yield('content')
+
+
+
+
+
+
+
+
+        <div class="bg-[#00000019]">
+
+            <div class="container">
+
+                <div class="flex  py-10  flex-wrap ">
+                    <div class="w-full md:w-1/5 text-center pt-5">
+                        <p class="font-bold ">Apple Online Store</p>
+                        <img src="{{ asset('themplete/front/images/png-apple-logo-9711.png') }}" class="w-24 h-10 mx-auto" alt="logo">
+                    </div>
+                    <div class="flex justify-around flex-wrap w-full md:w-4/5 gap-16">
+                    <ul class="space-y-2">
+    <li class="font-bold">Shop and Learn</li>
+    <li><a href="" class="text-gray-900 hover:underline">Store</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">Mac</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">iPad</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">iPhone</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">Watch</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">AirPods</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">TV & Home</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">AirTag</a></li>
+</ul>
+<ul class="space-y-2">
+    <li class="font-bold">Apple Podcasts</li>
+    <li><a href="" class="text-gray-900 hover:underline">Account</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">Manage Your Apple ID</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">Apple Store Account</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">iCloud.com</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">Entertainment</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">Apple TV+</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">Apple Music</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">Apple Arcade</a></li>
+</ul>
+<ul class="space-y-2">
+    <li class="font-bold">Apple Values</li>
+    <li><a href="" class="text-gray-900 hover:underline">Accessibility</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">Environment</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">Privacy</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">Supplier Responsibility</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">About Apple</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">Newsroom</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">Apple Leadership</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">Career Opportunities</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">Ethics & Compliance</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">Events</a></li>
+    <li><a href="" class="text-gray-900 hover:underline">Contact Apple</a></li>
+</ul>
+
+                    </div>
                 </div>
             </div>
+        </div>
 
         <div class="footer">
             <p>Copyright © 2023 Apple Inc. All rights reserved. Privacy Policy Terms of Use Sales Policy Legal Site Map Design By Ophone </p>
         </div>
     </div>
     <script>
-      let nav_list = document.getElementById('nav-list')
-      let openMenu = document.querySelector('.menuopen')
-      let cross = document.querySelector('.cross')
-      openMenu.addEventListener('click',()=>{
-        nav_list.style.opacity = '100%'
-        openMenu.style.display ='none'
-      })
-      cross.addEventListener('click',()=>{
-        nav_list.style.opacity = '0%';
-        setTimeout(()=>{
-            openMenu.style.display ='block'
-        },400)
-      })
-
+        let nav_list = document.getElementById('nav-list')
+        let openMenu = document.querySelector('.menuopen')
+        let cross = document.querySelector('.cross')
+        openMenu.addEventListener('click', () => {
+            nav_list.style.opacity = '100%'
+            openMenu.style.display = 'none'
+        })
+        cross.addEventListener('click', () => {
+            nav_list.style.opacity = '0%';
+            setTimeout(() => {
+                openMenu.style.display = 'block'
+            }, 400)
+        })
     </script>
 </body>
+
 </html>

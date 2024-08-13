@@ -91,7 +91,7 @@
             <p class="text-gray-600 ">You’ll also save on Apple Pencil, Magic Keyboard for iPad</p>
             <img src="{{ asset('themplete/front') }}/images/Apple-WWDC23-MacBook-Air-15-in-hero-230605.jpg.news_app_ed.jpg" class="m-auto m  t-19" alt="macbook">
         </div>
-        <div style="background: black;" class="card w-1/4">
+        <div style="background: black;" class="card md:w-1/4 w-full">
             <span  class="text-lg text-gray-100">LIMITED TIME OFFER</span>
             <h1 style="color: white;" class="font-bold text-3xl">MacBook Air 15. Buy Now</h1>
             <p style="color: white;">You’ll also save on Apple Pencil, Magic Keyboard for iPad, get 20% off AppleCare+, and more.²</p>
@@ -101,7 +101,7 @@
     </div>
 </div>
 <div class="apple-events">
-    <h1>
+    <h1 class="text-2xl font-medium leading-5 tracking-wide">
         Let's Explore Apple Events
         photos photos</h1>
     <div class="event-pictures">

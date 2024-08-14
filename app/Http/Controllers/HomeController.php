@@ -75,7 +75,13 @@ class HomeController extends Controller
     }
     
 
-
+    public function produk(){
+        $title = "Halaman Produk";
+        $subtitle = "Menu Produk";
+        $kategori_produk = KategoriProduk::all();
+        $produk = Produk::with('kategoriProduk')->orderBy('id', 'desc')->paginate(10);
+        return view('front.produk', compact('title', 'subtitle', 'produk', 'kategori_produk'));
+    }
 
     public function informasi()
     {
@@ -111,31 +117,27 @@ class HomeController extends Controller
     {
         $title = "Halaman Produk";
         $subtitle = "Menu Produk";
-        $kategori_produk = KategoriProduk::all();
-        
-        // Ambil query awal produk aktif dengan eager loading
+        $kategori_produk = KategoriProduk::orderBy('urutan', 'asc')->get();
+ 
         $query = Produk::with('kategoriProduk')
             ->where('produk.status', 'Aktif');
-        
-        // Proses pencarian berdasarkan keyword
+
         if ($request->has('keyword')) {
             $keyword = $request->keyword;
             $query->where(function ($query) use ($keyword) {
                 $query->where('produk.nama_produk', 'LIKE', '%' . $keyword . '%')
                     ->orWhere('produk.deskripsi', 'LIKE', '%' . $keyword . '%')
-                    ->orWhereHas('kategoriProduk', function ($query) use ($keyword) { // Pencarian berdasarkan nama kategori
+                    ->orWhereHas('kategoriProduk', function ($query) use ($keyword) { 
                         $query->where('nama_kategori_produk', 'LIKE', '%' . $keyword . '%');
                     });
             });
         }
         
-        // Filter berdasarkan kategori
         if ($request->has('kategori_id')) {
             $kategoriId = $request->kategori_id;
             $query->where('produk.kategori_produk_id', $kategoriId);
         }
         
-        // Proses pengurutan berdasarkan pilihan pengguna
         if ($request->has('sortSelect')) {
             $sortSelect = $request->sortSelect;
         
@@ -146,12 +148,9 @@ class HomeController extends Controller
                 case 'termahal':
                     $query->orderByRaw('CAST(produk.harga_jual AS UNSIGNED) DESC');
                     break;
-                case 'terlaris':
-                    // Tambahkan logika untuk pengurutan berdasarkan popularitas
-                    // Contoh: $query->orderBy('popularity', 'desc');
+                case 'terlaris': 
                     break;
                 default:
-                    // Default sorting jika tidak ada pilihan yang dipilih
                     break;
             }
         }
@@ -250,6 +249,21 @@ class HomeController extends Controller
             
             return view('front.produk.detail');
     }
-
+    public function location() {
+            
+            return view('front.location');
+    }
+    public function service() {
+            
+            return view('front.service');
+    }
+    public function feature() {
+            
+            return view('front.feature');
+    }
+    public function promo() {
+            
+            return view('front.promo');
+    }
  
 }

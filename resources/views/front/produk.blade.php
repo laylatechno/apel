@@ -17,150 +17,422 @@
 </style>
 
 @section('content')
-    <div class="header-area" id="headerArea">
-        <div class="container">
-            <div class="header-content position-relative d-flex align-items-center justify-content-between">
-                <div class="back-button">
-                    <a href="/">
-                        <i class="bi bi-arrow-left-short"></i>
-                    </a>
-                </div>
-                <div class="page-heading">
-                    <h6 class="mb-0">{{ $subtitle }} - {{ $profil->nama_perusahaan }}</h6>
-                </div>
-                <div class="setting-wrapper">
-                    <div class="navbar--toggler" id="affanNavbarToggler" data-bs-toggle="offcanvas"
-                        data-bs-target="#affanOffcanvas" aria-controls="affanOffcanvas">
-                        <span class="d-block"></span>
-                        <span class="d-block"></span>
-                        <span class="d-block"></span>
+<!--
+  This example requires some changes to your config:
+  
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      require('@tailwindcss/forms'),
+    ],
+  }
+  ```
+-->
+<div class="bg-white">
+    <div>
+        <!--
+      Mobile filter dialog
+
+      Off-canvas filters for mobile, show/hide based on off-canvas filters state.
+    -->
+        <div class="relative z-40 lg:hidden" role="dialog" aria-modal="true">
+            <!--
+        Off-canvas menu backdrop, show/hide based on off-canvas menu state.
+
+        Entering: "transition-opacity ease-linear duration-300"
+          From: "opacity-0"
+          To: "opacity-100"
+        Leaving: "transition-opacity ease-linear duration-300"
+          From: "opacity-100"
+          To: "opacity-0"
+      -->
+            <div class="fixed inset-0 bg-black bg-opacity-25" aria-hidden="true"></div>
+
+            <div class="fixed inset-0 z-40 flex">
+                <!--
+          Off-canvas menu, show/hide based on off-canvas menu state.
+
+          Entering: "transition ease-in-out duration-300 transform"
+            From: "translate-x-full"
+            To: "translate-x-0"
+          Leaving: "transition ease-in-out duration-300 transform"
+            From: "translate-x-0"
+            To: "translate-x-full"
+        -->
+                <div class="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl">
+                    <div class="flex items-center justify-between px-4">
+                        <h2 class="text-lg font-medium text-gray-900">Filters</h2>
+                        <button type="button" class="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400">
+                            <span class="sr-only">Close menu</span>
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="page-content-wrapper py-3">
-        <div class="shop-pagination pb-3">
-            <div class="container">
-                <div class="card">
-                    <div class="card-body p-2">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <form action="{{ route('produk_sale') }}" method="GET" class="d-flex align-items-center">
-                                <input type="text" name="keyword" class="form-control form-control-sm me-2"
-                                    placeholder="Cari produk ..." aria-label="Search">
-                                <select class="pe-4 form-select form-select-sm" id="sortSelect" name="sortSelect"
-                                    aria-label="Default select example">
-                                    <option value="" selected>Urutkan</option>
-                                    <option value="termurah">Termurah</option>
-                                    <option value="termahal">Termahal</option>
-                                    <option value="terlaris">Terlaris</option>
-                                </select>
-                                <button class="btn btn-outline-success btn-sm ms-2 w-100" type="submit"><i
-                                        class="bi bi-search"></i> Cari</button>
-                            </form>
-                            <button id="btnRefresh" class="btn btn-outline-danger btn-sm ms-2" type="button">
-                                Acak
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    <!-- Filters -->
+                    <form class="mt-4 border-t border-gray-200">
+                        <h3 class="sr-only">Categories</h3>
+                        <ul role="list" class="px-2 py-3 font-medium text-gray-900">
+                            <li>
+                                <a href="#" class="block px-2 py-3">Totes</a>
+                            </li>
+                            <li>
+                                <a href="#" class="block px-2 py-3">Backpacks</a>
+                            </li>
+                            <li>
+                                <a href="#" class="block px-2 py-3">Travel Bags</a>
+                            </li>
+                            <li>
+                                <a href="#" class="block px-2 py-3">Hip Bags</a>
+                            </li>
+                            <li>
+                                <a href="#" class="block px-2 py-3">Laptop Sleeves</a>
+                            </li>
+                        </ul>
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                document.getElementById('btnRefresh').addEventListener('click', function() {
-                    var currentUrl = window.location.href.split('?')[0];
-                    var separator = currentUrl.indexOf('?') !== -1 ? '&' : '?';
-                    window.location.href = currentUrl + separator + 'random=' + new Date().getTime();
-                });
-            });
-        </script>
-
-        <div class="container direction-rtl">
-            <div class="card mb-3">
-                <div class="card-body">
-                    <div class="row g-3">
-                        @foreach ($kategori_produk as $p)
-                            <div class="col-3">
-                                <div class="feature-card mx-auto text-center">
-                                    <div class="card mx-auto bg-gray">
-                                        <a href="{{ route('produk_sale', ['kategori_id' => $p->id]) }}" title="{{ $p->nama_kategori_produk }}">
-                                            <img src="/upload/kategori_produk/{{ $p->gambar }}" alt="{{ $p->nama_kategori_produk }}">
-                                        </a>
+                        <div class="border-t border-gray-200 px-4 py-6">
+                            <h3 class="-mx-2 -my-3 flow-root">
+                                <!-- Expand/collapse section button -->
+                                <button type="button" class="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500" aria-controls="filter-section-mobile-0" aria-expanded="false">
+                                    <span class="font-medium text-gray-900">Color</span>
+                                    <span class="ml-6 flex items-center">
+                                        <!-- Expand icon, show/hide based on section open state. -->
+                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                                        </svg>
+                                        <!-- Collapse icon, show/hide based on section open state. -->
+                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
+                                        </svg>
+                                    </span>
+                                </button>
+                            </h3>
+                            <!-- Filter section, show/hide based on section state. -->
+                            <div class="pt-6" id="filter-section-mobile-0">
+                                <div class="space-y-6">
+                                    <div class="flex items-center">
+                                        <input id="filter-mobile-color-0" name="color[]" value="white" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <label for="filter-mobile-color-0" class="ml-3 min-w-0 flex-1 text-gray-500">White</label>
                                     </div>
-                                    <p class="mb-0">
-                                        <a href="{{ route('produk_sale', ['kategori_id' => $p->id]) }}" title="{{ $p->nama_kategori_produk }}">
-                                            {{ $p->nama_kategori_produk }}
-                                        </a>
-                                    </p>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="top-products-area">
-            <div class="container">
-                <div class="row g-3">
-                    @foreach ($produk as $p)
-                        <div class="col-6 col-sm-4 col-lg-3">
-                            <div class="card single-product-card">
-                                <div class="card-body p-3">
-                                    <a class="product-thumbnail d-block"
-                                        href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">
-                                        <img src="/upload/produk/{{ $p->gambar }}" alt="{{ $p->nama_produk }}">
-
-                                        @if ($p->status_diskon == 'Aktif')
-                                            <span class="badge bg-danger">Diskon -
-                                                {{ $p->kategoriProduk->nama_kategori_produk }}</span>
-                                        @else
-                                            <span class="badge bg-warning">Sale -
-                                                {{ $p->kategoriProduk->nama_kategori_produk }}</span>
-                                        @endif
-                                    </a>
-                                    <a class="product-title d-block text-truncate" title="{{ $p->nama_produk }}"
-                                        href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">{{ $p->nama_produk }}</a>
-                                    @if ($p->status_diskon == 'Aktif')
-                                        <p class="sale-price price-wrapper">
-                                            Rp. {{ number_format($p->harga_jual_diskon, 0, ',', '.') }}
-                                            <br>
-                                            <span class="original-price">
-                                                Rp. {{ number_format($p->harga_jual, 0, ',', '.') }}
-                                            </span>
-                                        </p>
-                                    @else
-                                        <p class="sale-price price-wrapper">
-                                            Rp. {{ number_format($p->harga_jual, 0, ',', '.') }}
-                                        </p>
-                                    @endif
-                                    <a href="{{ route('toko.toko_detail', $p->user->user) }}">
-                                        <p class="mb-2">@ {{ $p->user->user }}</p>
-                                    </a>
-                                    <form class="add-to-cart-form" data-product-id="{{ $p->id }}">
-                                        @csrf
-                                        <button class="btn btn-primary rounded-pill btn-sm" type="button">Add to
-                                            Cart</button>
-                                    </form>
+                                    <div class="flex items-center">
+                                        <input id="filter-mobile-color-1" name="color[]" value="beige" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <label for="filter-mobile-color-1" class="ml-3 min-w-0 flex-1 text-gray-500">Beige</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="filter-mobile-color-2" name="color[]" value="blue" type="checkbox" checked class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <label for="filter-mobile-color-2" class="ml-3 min-w-0 flex-1 text-gray-500">Blue</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="filter-mobile-color-3" name="color[]" value="brown" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <label for="filter-mobile-color-3" class="ml-3 min-w-0 flex-1 text-gray-500">Brown</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="filter-mobile-color-4" name="color[]" value="green" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <label for="filter-mobile-color-4" class="ml-3 min-w-0 flex-1 text-gray-500">Green</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="filter-mobile-color-5" name="color[]" value="purple" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <label for="filter-mobile-color-5" class="ml-3 min-w-0 flex-1 text-gray-500">Purple</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+                        <div class="border-t border-gray-200 px-4 py-6">
+                            <h3 class="-mx-2 -my-3 flow-root">
+                                <!-- Expand/collapse section button -->
+                                <button type="button" class="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500" aria-controls="filter-section-mobile-1" aria-expanded="false">
+                                    <span class="font-medium text-gray-900">Category</span>
+                                    <span class="ml-6 flex items-center">
+                                        <!-- Expand icon, show/hide based on section open state. -->
+                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                                        </svg>
+                                        <!-- Collapse icon, show/hide based on section open state. -->
+                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
+                                        </svg>
+                                    </span>
+                                </button>
+                            </h3>
+                            <!-- Filter section, show/hide based on section state. -->
+                            <div class="pt-6" id="filter-section-mobile-1">
+                                <div class="space-y-6">
+                                    <div class="flex items-center">
+                                        <input id="filter-mobile-category-0" name="category[]" value="new-arrivals" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <label for="filter-mobile-category-0" class="ml-3 min-w-0 flex-1 text-gray-500">New Arrivals</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="filter-mobile-category-1" name="category[]" value="sale" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <label for="filter-mobile-category-1" class="ml-3 min-w-0 flex-1 text-gray-500">Sale</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="filter-mobile-category-2" name="category[]" value="travel" type="checkbox" checked class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <label for="filter-mobile-category-2" class="ml-3 min-w-0 flex-1 text-gray-500">Travel</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="filter-mobile-category-3" name="category[]" value="organization" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <label for="filter-mobile-category-3" class="ml-3 min-w-0 flex-1 text-gray-500">Organization</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="filter-mobile-category-4" name="category[]" value="accessories" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <label for="filter-mobile-category-4" class="ml-3 min-w-0 flex-1 text-gray-500">Accessories</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-t border-gray-200 px-4 py-6">
+                            <h3 class="-mx-2 -my-3 flow-root">
+                                <!-- Expand/collapse section button -->
+                                <button type="button" class="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500" aria-controls="filter-section-mobile-2" aria-expanded="false">
+                                    <span class="font-medium text-gray-900">Size</span>
+                                    <span class="ml-6 flex items-center">
+                                        <!-- Expand icon, show/hide based on section open state. -->
+                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                                        </svg>
+                                        <!-- Collapse icon, show/hide based on section open state. -->
+                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
+                                        </svg>
+                                    </span>
+                                </button>
+                            </h3>
+                            <!-- Filter section, show/hide based on section state. -->
+                            <div class="pt-6" id="filter-section-mobile-2">
+                                <div class="space-y-6">
+                                    <div class="flex items-center">
+                                        <input id="filter-mobile-size-0" name="size[]" value="2l" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <label for="filter-mobile-size-0" class="ml-3 min-w-0 flex-1 text-gray-500">2L</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="filter-mobile-size-1" name="size[]" value="6l" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <label for="filter-mobile-size-1" class="ml-3 min-w-0 flex-1 text-gray-500">6L</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="filter-mobile-size-2" name="size[]" value="12l" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <label for="filter-mobile-size-2" class="ml-3 min-w-0 flex-1 text-gray-500">12L</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="filter-mobile-size-3" name="size[]" value="18l" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <label for="filter-mobile-size-3" class="ml-3 min-w-0 flex-1 text-gray-500">18L</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="filter-mobile-size-4" name="size[]" value="20l" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <label for="filter-mobile-size-4" class="ml-3 min-w-0 flex-1 text-gray-500">20L</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input id="filter-mobile-size-5" name="size[]" value="40l" type="checkbox" checked class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                        <label for="filter-mobile-size-5" class="ml-3 min-w-0 flex-1 text-gray-500">40L</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
 
-        <div class="shop-pagination pt-3">
-            <div class="container">
-                <div class="card">
-                    <div class="card-body py-3">
-                        {{ $produk->links('vendor.pagination.bootstrap-4') }}
-                    </div>
+        <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ">
+            <div class="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
+                <h1 class="text-4xl font-bold tracking-tight text-gray-900">Semua Produk</h1>
+
+                <div class="flex items-center">
+
+
+
                 </div>
             </div>
-        </div>
+            <div class="flex flex-wrap w-full">
+
+                <section aria-labelledby="products-heading" class="pb-24 pt-6 w-1/4">
+
+                    <div class="">
+                        <!-- Filters -->
+                        <form class="hidden lg:block w-full pr-4">
+                            <h3 class="sr-only">Categories</h3>
+                            <ul role="list" class="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
+                                <li>
+                                    <a href="#">Totes</a>
+                                </li>
+                                <li>
+                                    <a href="#">Backpacks</a>
+                                </li>
+                                <li>
+                                    <a href="#">Travel Bags</a>
+                                </li>
+                                <li>
+                                    <a href="#">Hip Bags</a>
+                                </li>
+                                <li>
+                                    <a href="#">Laptop Sleeves</a>
+                                </li>
+                            </ul>
+
+                            <div class="border-b border-gray-200 py-6">
+                                <h3 class="-my-3 flow-root">
+                                    <!-- Expand/collapse section button -->
+                                    <button type="button" class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500" aria-controls="filter-section-0" aria-expanded="false">
+                                        <span class="font-medium text-gray-900">Color</span>
+                                        <span class="ml-6 flex items-center">
+                                            <!-- Expand icon, show/hide based on section open state. -->
+                                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                                            </svg>
+                                            <!-- Collapse icon, show/hide based on section open state. -->
+                                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </h3>
+                                <!-- Filter section, show/hide based on section state. -->
+                                <div class="pt-6" id="filter-section-0">
+                                    <div class="space-y-4">
+                                        <div class="flex items-center">
+                                            <input id="filter-color-0" name="color[]" value="white" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <label for="filter-color-0" class="ml-3 text-sm text-gray-600">White</label>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input id="filter-color-1" name="color[]" value="beige" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <label for="filter-color-1" class="ml-3 text-sm text-gray-600">Beige</label>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input id="filter-color-2" name="color[]" value="blue" type="checkbox" checked class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <label for="filter-color-2" class="ml-3 text-sm text-gray-600">Blue</label>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input id="filter-color-3" name="color[]" value="brown" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <label for="filter-color-3" class="ml-3 text-sm text-gray-600">Brown</label>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input id="filter-color-4" name="color[]" value="green" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <label for="filter-color-4" class="ml-3 text-sm text-gray-600">Green</label>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input id="filter-color-5" name="color[]" value="purple" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <label for="filter-color-5" class="ml-3 text-sm text-gray-600">Purple</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border-b border-gray-200 py-6">
+                                <h3 class="-my-3 flow-root">
+                                    <!-- Expand/collapse section button -->
+                                    <button type="button" class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500" aria-controls="filter-section-1" aria-expanded="false">
+                                        <span class="font-medium text-gray-900">Category</span>
+                                        <span class="ml-6 flex items-center">
+                                            <!-- Expand icon, show/hide based on section open state. -->
+                                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                                            </svg>
+                                            <!-- Collapse icon, show/hide based on section open state. -->
+                                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </h3>
+                                <!-- Filter section, show/hide based on section state. -->
+                                <div class="pt-6" id="filter-section-1">
+                                    <div class="space-y-4">
+                                        @foreach ($kategori_produk as $item )
+                                        <div class="flex items-center">
+                                            <input id="filter-category-0" name="category[]" value="new-arrivals" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                            <label for="filter-category-0" class="ml-3 text-sm text-gray-600">{{$item->nama_kategori_produk}}</label>
+                                        </div>
+                                        @endforeach
+
+                                    </div>
+                                </div>
+                                <div class="border-b border-gray-200 py-6">
+                                    <h3 class="-my-3 flow-root">
+                                        <!-- Expand/collapse section button -->
+                                        <button type="button" class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500" aria-controls="filter-section-2" aria-expanded="false">
+                                            <span class="font-medium text-gray-900">Size</span>
+                                            <span class="ml-6 flex items-center">
+                                                <!-- Expand icon, show/hide based on section open state. -->
+                                                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                                                </svg>
+                                                <!-- Collapse icon, show/hide based on section open state. -->
+                                                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                    <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z" clip-rule="evenodd" />
+                                                </svg>
+                                            </span>
+                                        </button>
+                                    </h3>
+                                    <!-- Filter section, show/hide based on section state. -->
+                                    <div class="pt-6" id="filter-section-2">
+                                        <div class="space-y-4">
+                                            <div class="flex items-center">
+                                                <input id="filter-size-0" name="size[]" value="2l" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                                <label for="filter-size-0" class="ml-3 text-sm text-gray-600">2L</label>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <input id="filter-size-1" name="size[]" value="6l" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                                <label for="filter-size-1" class="ml-3 text-sm text-gray-600">6L</label>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <input id="filter-size-2" name="size[]" value="12l" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                                <label for="filter-size-2" class="ml-3 text-sm text-gray-600">12L</label>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <input id="filter-size-3" name="size[]" value="18l" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                                <label for="filter-size-3" class="ml-3 text-sm text-gray-600">18L</label>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <input id="filter-size-4" name="size[]" value="20l" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                                <label for="filter-size-4" class="ml-3 text-sm text-gray-600">20L</label>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <input id="filter-size-5" name="size[]" value="40l" type="checkbox" checked class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
+                                                <label for="filter-size-5" class="ml-3 text-sm text-gray-600">40L</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </form>
+
+
+                    </div>
+
+
+                </section>
+                <div class="w-3/4 px-4">
+
+                    <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+                        @foreach ($produk as $item)
+                        <div class="group relative">
+                            <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+                                <img src="{{asset('upload/produk/'.$item->gambar)}}" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
+                            </div>
+                            <div class="mt-4 flex justify-between">
+                                <div>
+                                    <h3 class="text-sm text-gray-700">
+                                        <a href="#">
+                                            <span aria-hidden="true" class="absolute inset-0"></span>
+                                            {{$item->nama_produk}}
+                                        </a>
+                                    </h3>
+                                    <p class="mt-1 text-sm text-gray-500">{{$item->kategoriProduk->nama_kategori_produk}}</p>
+                                </div>
+                                <p class="text-sm font-medium text-gray-900">Rp {{number_format($item->harga_jual)}}</p>
+                            </div>
+                        </div>
+                        @endforeach
+                        
+
+                    </div>
+                    
+
+                </div>
+            </div>
+
+        </main>
     </div>
+</div>
 @endsection

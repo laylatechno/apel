@@ -21,6 +21,10 @@ module.exports = {
   },
   // container
 
-  plugins: [],
+
+  plugins: [
+    require('@tailwindcss/forms','@tailwindcss/aspect-ratio'),
+   
+  ],
 }
 

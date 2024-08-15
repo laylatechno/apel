@@ -58,7 +58,7 @@
                 <div class="flex  py-10  flex-wrap ">
                     <div class="w-full md:w-1/5 text-center pt-5">
                         <p class="font-bold ">Apple Online Store</p>
-                        <img src="{{ asset('themplete/front/images/png-apple-logo-9711.png') }}" class="w-24 h-10 mx-auto" alt="logo">
+                        <img src="{{ asset('themplete/front/images/png-apple-logo-9711.png') }}" class="w-32 h-10 mx-auto" alt="logo">
                     </div>
                     <div class="flex justify-around flex-wrap w-full md:w-4/5 gap-16">
                         <ul class="space-y-2">

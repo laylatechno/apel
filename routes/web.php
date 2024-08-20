@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\AlasanController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BeritaController;
@@ -146,5 +147,4 @@ Route::middleware(['auth', 'checkRole:pengguna'])->group(function () {
 Route::get('/auth', [AuthController::class, 'index'])->name('auth');
 Route::post('/auth', [AuthController::class, 'login'])->name('auth.login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
-
-// tes
+Route::post('/category/filter', [AjaxController::class, 'filter'])->name('category.filter');

@@ -7,6 +7,12 @@
     <title>{{ $profil->nama_perusahaan }}</title>
     <link rel="stylesheet" href="{{ asset('themplete/front') }}/style.css">
     <link rel="icon" type="image/png" sizes="16x16" href="/upload/profil/{{ $profil->favicon }}">
+    <style>
+    .ytp-button ytp-overflow-button ytp-overflow-button-visible{
+        display: none !important;
+        visibility: hidden !important;
+    }
+</style>
     @vite('resources/css/app.css')
 </head>
 
@@ -56,11 +62,11 @@
             <div class="container">
 
                 <div class="flex  py-10  flex-wrap ">
-                    <div class="w-full md:w-1/5 text-center pt-5">
+                    <div class="w-full md:w-1/5 text-start md:text-center">
                         <p class="font-bold ">Apple Online Store</p>
-                        <img src="{{ asset('themplete/front/images/png-apple-logo-9711.png') }}" class="w-32 h-10 mx-auto" alt="logo">
+                        <img src="{{ asset('themplete/front/images/png-apple-logo-9711.png') }}" class="w-32 h-10 md:mx-auto mb-5 md:mb-0" alt="logo">
                     </div>
-                    <div class="flex justify-around flex-wrap w-full md:w-4/5 gap-16">
+                    <div class="flex flex-col md:flex-row justify-around flex-wrap w-full md:w-4/5 gap-4">
                         <ul class="space-y-2">
                             <li class="font-bold">Shop and Learn</li>
                             <li><a href="" class="text-gray-900 hover:underline">Store</a></li>

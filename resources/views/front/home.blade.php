@@ -2,7 +2,6 @@
 @section('title', $title)
 @section('subtitle', $subtitle)
 
-
 @section('content')
 
 
@@ -13,28 +12,29 @@
             <a href="#" class="text-blue-500">See Offers </a>
         </div>
 <div class="back-video">
-    {{-- <video autoplay loop muted play-inline>
-        <source src="{{ asset('themplete/front') }}/Videos/y2mate.com - iPhone Xr Official Trailer_1080p(1).mp4" type="video/mp4">
-    </video> --}}
-    <iframe src="https://www.youtube.com/embed/zXJbdtxh0XE?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&showinfo=0"
+    <video autoplay loop muted play-inline>
+        <source src="video.mp4" type="video/mp4">
+    </video>
+    <!-- <iframe src="https://www.youtube.com/embed/zXJbdtxh0XE?autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&showinfo=0" frameborder="0"
     style="width: 100%; height: calc(100vw * 9 / 16); max-width: 1920px; max-height: 1080px; margin: 0 auto; display: block; border: none;" 
-    title="YouTube video player" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-    allowfullscreen></iframe>
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;" 
+    allowfullscreen></iframe> -->
 
 </div>
 
-<div class="section">
-    <div class="container flex gap-10">
+<div class="section ">
+    <div class="container flex">
 
         <div class="text-center md:text-start text-lg">
-            <h1> Store.The best way to buy theproducts you love. </h1>
+        <h1> Store.The best way to buy theproducts you love. </h1>
+
         </div>
        
     </div>
 
 </div>
 <div class="products py-10">
+    
     <div class="container flex md:justify-between justify-center md:gap-0 w-full flex-wrap items-center gap-3">
         @foreach ($kategori_produk as $p)
         <div class="product md:w-[12%] w-[45%] bg-gray-100 border-2 border-gray-200 my-2 items-center p-4 rounded-lg  hover:scale-105 transition duration-300">
@@ -74,7 +74,7 @@
     <h1 class="text-2xl font-medium">The latest. Take a look at what’s new right now. </h1>
     <div class="cards flex justify-center gap-5">
         @foreach ($produk as $p)
-        <div class="card w-1/4">
+        <div class="card md:w-1/4 w-full">
             <span class="text-lg text-red-700"><b>{{ $p->kategoriProduk->nama_kategori_produk }}</b></span>
             <a href="{{ route('produk_sale.produk_sale_detail', $p->slug) }}">
             <h1 class="font-bold text-3xl text-gray-900">{{ $p->nama_produk }}.</h1>
@@ -85,19 +85,7 @@
          
         </div>
         @endforeach
-        {{-- <div class="card w-1/4">
-            <span class="text-lg text-gray-700">LIMITED TIME OFFER</span>
-            <h1 class="font-bold text-3xl text-gray-900">MacBook Air 15</h1>
-            <p class="text-gray-600 ">You’ll also save on Apple Pencil, Magic Keyboard for iPad</p>
-            <img src="{{ asset('themplete/front') }}/images/Apple-WWDC23-MacBook-Air-15-in-hero-230605.jpg.news_app_ed.jpg" class="m-auto m  t-19" alt="macbook">
-        </div>
-        <div style="background: black;" class="card md:w-1/4 w-full">
-            <span  class="text-lg text-gray-100">LIMITED TIME OFFER</span>
-            <h1 style="color: white;" class="font-bold text-3xl">MacBook Air 15. Buy Now</h1>
-            <p style="color: white;">You’ll also save on Apple Pencil, Magic Keyboard for iPad, get 20% off AppleCare+, and more.²</p>
-            <img style="height: 180px;" src="{{ asset('themplete/front') }}/images/gsmarena_001.jpg" class="m-auto" alt="iphone">
-        </div> --}}
-   
+       
     </div>
 </div>
 <div class="apple-events">

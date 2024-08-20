@@ -55,7 +55,7 @@
     justify-content: space-evenly;
     padding-top: 40px;
     background-color: rgba(0, 0, 0, 0.099);
-    margin-top: 30px;
+    /* margin-top: 30px; */
 }
 .titles h1{
     font-size: 40px;

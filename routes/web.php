@@ -29,7 +29,7 @@ use App\Http\Controllers\SocialiteController;
 use App\Http\Controllers\TransaksiController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/produk', [HomeController::class, 'produk'])->name('home.produk');
+Route::get('/produk_sale', [HomeController::class, 'produk'])->name('home.produk');
 Route::get('/location', [HomeController::class, 'location'])->name('location');
 Route::get('/service', [HomeController::class, 'service'])->name('service');
 Route::get('/feature', [HomeController::class, 'feature'])->name('feature');
@@ -37,7 +37,7 @@ Route::get('/promo', [HomeController::class, 'promo'])->name('promo');
 Route::get('/produk/{slug}', [HomeController::class, 'produk_detail'])->name('produk.produk_detail');
 Route::get('/informasi', [HomeController::class, 'informasi']);
 Route::get('/informasi/{slug}', [HomeController::class, 'informasi_detail'])->name('informasi.informasi_detail');
-Route::get('/produk_sale', [HomeController::class, 'produk_sale'])->name('produk_sale');
+// Route::get('/produk_sale', [HomeController::class, 'produk_sale'])->name('produk_sale');
 Route::get('/produk_sale/{slug}', [HomeController::class, 'produk_sale_detail'])->name('produk_sale.produk_sale_detail');
 
 Route::get('/toko', [HomeController::class, 'toko'])->name('toko');
@@ -74,15 +74,13 @@ Route::put('/profil_pengguna/update_display_pengguna/{id}', [ProfilPenggunaContr
 
 // Route::get('produk/datatables', [ProdukController::class, 'index'])->name('produk.datatables');
 // group name of route using admin
-Route::group(['prefix' => 'admin'], function () {
-   
-        Route::get('datatables/produk', [ProdukController::class, 'getProdukDatatables'])->name('datatables.produk');
+   Route::get('datatables/produk', [ProdukController::class, 'getProdukDatatables'])->name('datatables.produk');
         Route::resource('produk', ProdukController::class);
         Route::post('/produk/upload-gambar/{id}', [ProdukController::class, 'uploadGambar'])->name('produk.upload-gambar');
         Route::get('/produk/{produk}/gambar', [ProdukController::class, 'getGambar'])->name('produk.gambar.get');
         Route::delete('/produk/gambar/{id}', [ProdukController::class, 'deleteGambar'])->name('produk.delete.gambar');
     
-});
+
 
 
  

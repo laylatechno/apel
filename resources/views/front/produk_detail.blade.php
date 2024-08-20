@@ -33,20 +33,20 @@
       </nav> --}}
   
       <!-- Image gallery -->
-      <div class="mx-auto mt-6 w-full  flex flex-wrap max-w-7xl ">
+      <div class="mx-auto pt-10 w-full  flex flex-wrap max-w-7xl ">
        
        
-          <div class=" overflow-hidden rounded-lg w-2/3">
-          <img id="mainImage" src="/upload/produk/{{ $produk->gambar }}" alt="" style="width: 100%; height: full; object-fit: cover; object-position: center;">
+          <div class=" overflow-hidden rounded-lg md:w-[60%] w-full p-10 md:p-0">
+          <img id="mainImage" src="/upload/produk/{{ $produk->gambar }}" alt="" class="rounded-lg md:h-auto h-full" style="width: 100%;  object-fit:cover;">
 
 
           </div>
-          <div class="mt-4 flex flex-col items-center justify-start px-3 mx-auto">
-            <img id="mainImage" src="/upload/produk/{{ $produk->gambar }}" alt="" class="thumbnail rounded-lg border border-gray-300  my-3 w-[150px] h-1/5 object-center bg-cover" style=" object-fit: cover; cursor: pointer;">
+          <div class="mt-4 flex md:flex-col  md:items-center justify-start px-3 mx-10">
+            <img id="mainImage" src="/upload/produk/{{ $produk->gambar }}" alt="" class="thumbnail rounded-lg border border-gray-300  my-3 w-[150px] md:h-1/5 h-full object-center bg-cover" style=" object-fit: cover; cursor: pointer;">
             @forelse ($produk->gambars as $image )
               
    
-            <img src="/upload/produk/{{ $image->gambar }}" alt="" class="thumbnail rounded-lg border border-gray-300  my-3 w-[150px] h-1/5 object-center bg-cover" style=" object-fit: cover; cursor: pointer;">
+            <img src="/upload/produk/{{ $image->gambar }}" alt="" class="thumbnail rounded-lg border border-gray-300  my-3 w-[150px] md:h-1/5 h-full object-center bg-cover" style=" object-fit: cover; cursor: pointer;">
             @empty
               
             @endforelse

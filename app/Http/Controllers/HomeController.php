@@ -265,5 +265,9 @@ class HomeController extends Controller
             
             return view('front.promo');
     }
+    public function blog() {
+            
+            return view('front.blog');
+    }
  
 }

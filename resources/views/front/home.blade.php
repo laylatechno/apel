@@ -70,9 +70,9 @@
         </div> --}}
     </div>
 </div>
-<div class="card-container   gap-5">
+<div class="mt-11 md:px-14 px-4   gap-5">
     <h1 class="text-2xl font-medium">The latest. Take a look at what’s new right now. </h1>
-    <div class="cards flex justify-center gap-5">
+    <div class="cards flex justify-centers">
          @foreach ($produk as $p)
         <div class="card md:w-1/4 w-full">
             <span class="text-lg text-red-700"><b>{{ $p->kategoriProduk->nama_kategori_produk }}</b></span>

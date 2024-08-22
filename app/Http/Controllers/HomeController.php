@@ -118,7 +118,7 @@ class HomeController extends Controller
         $title = "Halaman Produk";
         $subtitle = "Menu Produk";
         $kategori_produk = KategoriProduk::orderBy('urutan', 'asc')->get();
- 
+        
         $query = Produk::with('kategoriProduk')
             ->where('produk.status', 'Aktif');
 
@@ -267,7 +267,11 @@ class HomeController extends Controller
     }
     public function blog() {
             
-            return view('front.blog');
+            return view('front.blog.index');
+    }
+    public function blog_detail() {
+            
+            return view('front.blog.detail');
     }
  
 }

@@ -13,6 +13,55 @@
         visibility: hidden !important;
     }
 </style>
+<style>
+    .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 20px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+
+#searchResults {
+    margin-top: 20px;
+}
+
+</style>
     @vite('resources/css/app.css')
 </head>
 
@@ -34,7 +83,7 @@
                 </ul>
                 <div class="nav-icons flex">
                     <img src="{{ asset('themplete/front') }}/images/search-icon-png-9969(1).png" alt="search">
-                    <img src="{{ asset('themplete/front') }}/images/shopping-bag.png" alt="shopping">
+                    <a href="https://wa.me/{{$profil->no_wa}}"><img src="{{ asset('themplete/front') }}/images/wa.png" alt="shopping"></a>
                     <img class="menuopen" src="{{ asset('themplete/front') }}/images/hamburger-menu-5.png" alt="menu">
                 </div>
             </div>
@@ -108,6 +157,15 @@
                 </div>
             </div>
         </div>
+        <div id="searchModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Search</h2>
+        <form action="{{route('home.produk')}}" method="get" >
+            <input type="text" id="searchInput" name="keyword" placeholder="Search here..." autofocus>
+        </form>
+    </div>
+</div>
 
         <div class="footer">
             <p>Copyright © 2023 Apple Inc. All rights reserved. Privacy Policy Terms of Use Sales Policy Legal Site Map Design By Ophone </p>
@@ -128,6 +186,28 @@
             }, 400)
         })
     </script>
+    <!-- jquery cdn -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+    var modal = $('#searchModal');
+    var span = $('.close');
+
+    $('.nav-icons img[src$="search-icon-png-9969(1).png"]').on('click', function() {
+        modal.show();
+    });
+    span.on('click', function() {
+        modal.hide();
+    });
+    $(window).on('click', function(event) {
+        if ($(event.target).is(modal)) {
+            modal.hide();
+        }
+    });
+});
+
+    </script>
+   
 </body>
 
 </html>

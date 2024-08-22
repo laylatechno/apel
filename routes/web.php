@@ -30,7 +30,7 @@ use App\Http\Controllers\SocialiteController;
 use App\Http\Controllers\TransaksiController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/produk_sale', [HomeController::class, 'produk'])->name('home.produk');
+Route::get('/produk_sale', [HomeController::class, 'produk_sale'])->name('home.produk');
 Route::get('/location', [HomeController::class, 'location'])->name('location');
 Route::get('/service', [HomeController::class, 'service'])->name('service');
 Route::get('/feature', [HomeController::class, 'feature'])->name('feature');
@@ -40,7 +40,8 @@ Route::get('/informasi', [HomeController::class, 'informasi']);
 Route::get('/informasi/{slug}', [HomeController::class, 'informasi_detail'])->name('informasi.informasi_detail');
 // Route::get('/produk_sale', [HomeController::class, 'produk_sale'])->name('produk_sale');
 Route::get('/produk_sale/{slug}', [HomeController::class, 'produk_sale_detail'])->name('produk_sale.produk_sale_detail');
-Route::get('/blog', [HomeController::class, 'blog']);
+Route::get('/blog', [HomeController::class, 'blog'])->name('blog');
+Route::get('/blog/{slug}', [HomeController::class, 'blog_detail'])->name('blog.blog_detail');
 Route::get('/toko', [HomeController::class, 'toko'])->name('toko');
 Route::get('/toko/{user}', [HomeController::class, 'toko_detail'])->name('toko.toko_detail');
 Route::get('/video_pengguna', [HomeController::class, 'video']);

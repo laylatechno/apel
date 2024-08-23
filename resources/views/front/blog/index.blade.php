@@ -12,7 +12,7 @@
                   <span class="text-gray-950 font-medium mb-3 block">Jan 01, 2023</span>
                   <h4 class="text-xl text-gray-900 font-medium leading-8 mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem, laudantium?</h4>
                   <p class="text-gray-500 leading-6 mb-10">Discover smart investment strategies to streamline and organize your portfolio..</p>
-                  <a href="javascript:;" class="cursor-pointer text-lg text-gray-950 font-semibold">Read more..</a>
+                  <a href="/blog/wr" class="cursor-pointer text-lg text-gray-950 font-semibold">Read more..</a>
               </div>
              </div>
              <div class="group w-full max-lg:max-w-xl lg:w-1/3 border border-gray-300 rounded-2xl">
@@ -23,7 +23,7 @@
                   <span class="text-gray-950 font-medium mb-3 block">Feb 01, 2023</span>
                   <h4 class="text-xl text-gray-900 font-medium leading-8 mb-5">How to grow your profit through systematic investment with us</h4>
                   <p class="text-gray-500 leading-6 mb-10">Unlock the power of systematic investment with us and watch your profits soar. Our..</p>
-                  <a href="javascript:;" class="cursor-pointer text-lg text-gray-950 font-semibold">Read more..</a>
+                  <a href="/blog/wr" class="cursor-pointer text-lg text-gray-950 font-semibold">Read more..</a>
               </div>
              </div>
              <div class="group w-full max-lg:max-w-xl lg:w-1/3 border border-gray-300 rounded-2xl">
@@ -34,7 +34,7 @@
                   <span class="text-gray-950 font-medium mb-3 block">Mar 01, 20233</span>
                   <h4 class="text-xl text-gray-900 font-medium leading-8 mb-5">How to analyze every holdings of your portfolio</h4>
                   <p class="text-gray-500 leading-6 mb-10">Our comprehensive guide will equip you with the tools and insights needed to..</p>
-                  <a href="javascript:;" class="cursor-pointer text-lg text-gray-950 font-semibold">Read more..</a>
+                  <a href="/blog/wr" class="cursor-pointer text-lg text-gray-950 font-semibold">Read more..</a>
               </div>
              </div>
           </div>

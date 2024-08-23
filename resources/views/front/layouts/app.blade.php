@@ -62,32 +62,114 @@
 }
 
 </style>
+<style>
+
+.navbar {
+    position: relative;
+}
+
+ul#nav-list li {
+    position: relative;
+}
+
+ul#nav-list .dropdown {
+    display: none; 
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 200px;
+
+    background-color: white;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    border-radius: 8px;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(10px);
+    z-index: 10;
+}
+
+ul#nav-list li:hover .dropdown,
+ul#nav-list li:focus-within .dropdown {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+ul#nav-list .dropdown li {
+    transition: background-color 1s ease;
+}
+
+ul#nav-list .dropdown li:hover {
+    background-color: #f1f1f1;
+    transition: background-color 3s ease;
+}
+
+.nav-icons img {
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+</style>
     @vite('resources/css/app.css')
-</head>
+    @stack('css')
+ </head>
 
 <body>
     <div class="">
-        <div class="navbar w-full flex justify-around">
-            <div class="container flex items-center justify-between w-full">
-
-                <div class="logo">
-                    <img src="/upload/profil/{{ $profil->gambar }}" alt="logo" width="80px;">
-                </div>
-                <ul id="nav-list">
-                    <li> <a href="{{route('home.produk')}}" class="hover:underline hover:text-gray-700 hover:transition duration-500 ">Product</a> </li>
-                    <li> <a href="{{route('service')}}" class="hover:underline hover:text-gray-700 hover:transition duration-500">Services</a> </li>
-                    <li> <a href="{{route('feature')}}" class="hover:underline hover:text-gray-700 hover:transition duration-500">Features</a> </li>
-                    <li> <a href="{{route('promo')}}" class="hover:underline hover:text-gray-700 hover:transition duration-500">Promo</a> </li>
-                    <li> <a href="{{route('location')}}" class="hover:underline hover:text-gray-700 hover:transition duration-500">Location</a> </li>
-                    <img class="cross" src="{{ asset('themplete/front') }}/images/close-116-512.png" alt="cross">
-                </ul>
-                <div class="nav-icons flex">
-                    <img src="{{ asset('themplete/front') }}/images/search-icon-png-9969(1).png" alt="search">
-                    <a href="https://wa.me/{{$profil->no_wa}}"><img src="{{ asset('themplete/front') }}/images/wa.png" alt="shopping"></a>
-                    <img class="menuopen" src="{{ asset('themplete/front') }}/images/hamburger-menu-5.png" alt="menu">
-                </div>
-            </div>
+    <div class="navbar w-full flex justify-around">
+    <div class="container flex items-center justify-between w-full">
+        <div class="logo">
+            <img src="/upload/profil/{{ $profil->gambar }}" alt="logo" width="80px">
         </div>
+        <ul id="nav-list" class="relative">
+            <li> 
+                <a href="{{route('home.produk')}}" class="hover:underline hover:text-gray-700 hover:transition duration-500">Product</a> 
+                <!-- Dropdown for Product -->
+                <ul class="dropdown hidden absolute bg-white shadow-lg rounded">
+                    <li><a href="#" class="block px-4 -ml-10 py-2 hover:bg-gray-100">Sub Product 1</a></li>
+                    <li><a href="#" class="block px-4 -ml-10 py-2 hover:bg-gray-100">Sub Product 2</a></li>
+                    <li><a href="#" class="block px-4 -ml-10 py-2 hover:bg-gray-100">Sub Product 3</a></li>
+                </ul>
+            </li>
+            <li> 
+                <a href="{{route('service')}}" class="hover:underline hover:text-gray-700 hover:transition duration-500">Services</a>
+                <ul class="dropdown hidden absolute bg-white shadow-lg rounded">
+                    <li><a href="{{route('service')}}" class="block px-4 -ml-10 py-2 hover:bg-gray-100">Perbaikan Iphone</a></li>
+                    <li><a href="{{route('service')}}" class="block px-4 -ml-10 py-2 hover:bg-gray-100">Perbaikan Mac</a></li>
+                    <li><a href="{{route('service')}}" class="block px-4 -ml-10 py-2 hover:bg-gray-100">Perbaikan Ipad</a></li>
+                </ul>
+            </li> 
+            </li>
+            <li> 
+                <a href="{{route('feature')}}" class="hover:underline hover:text-gray-700 hover:transition duration-500">Features</a> 
+                <ul class="dropdown hidden absolute bg-white shadow-lg rounded">
+                    <li><a href="{{route('service')}}" class="block px-4 -ml-10 py-2 hover:bg-gray-100">Tukar Tambah</a></li>
+                    <li><a href="{{route('service')}}" class="block px-4 -ml-10 py-2 hover:bg-gray-100">Jual Beli Second</a></li>
+                    </ul>
+            </li>
+            <li> 
+                <a href="{{route('promo')}}" class="hover:underline hover:text-gray-700 hover:transition duration-500">Promo</a> 
+                <ul class="dropdown hidden absolute bg-white shadow-lg rounded">
+                    <li><a href="{{route('service')}}" class="block px-4 -ml-10 py-2 hover:bg-gray-100">Promo Bulan Ini</a></li>
+                    <li><a href="{{route('service')}}" class="block px-4 -ml-10 py-2 hover:bg-gray-100">Promo Membership</a></li>
+                </ul>
+            </li>
+            <li> 
+                <a href="{{route('location')}}" class="hover:underline hover:text-gray-700 hover:transition duration-500">Location</a> 
+            </li>
+            <img class="cross" src="{{ asset('themplete/front') }}/images/close-116-512.png" alt="cross">
+        </ul>
+        <div class="nav-icons flex">
+            <img src="{{ asset('themplete/front') }}/images/search-icon-png-9969(1).png" alt="search">
+            <a href="https://wa.me/{{$profil->no_wa}}">
+                <img src="{{ asset('themplete/front') }}/images/wa.png" alt="shopping">
+            </a>
+            <img class="menuopen" src="{{ asset('themplete/front') }}/images/hamburger-menu-5.png" alt="menu">
+        </div>
+    </div>
+</div>
+
 
 
 
@@ -128,8 +210,8 @@
                             <li><a href="" class="text-gray-900 hover:underline">AirTag</a></li>
                         </ul>
                         <ul class="space-y-2">
-                            <li class="font-bold">Apple Podcasts</li>
-                            <li><a href="" class="text-gray-900 hover:underline">Account</a></li>
+                            <li class="font-bold">Company</li>
+                            <li><a href="{{route('blog')}}" class="text-gray-900 hover:underline">Blog</a></li>
                             <li><a href="" class="text-gray-900 hover:underline">Manage Your Apple ID</a></li>
                             <li><a href="" class="text-gray-900 hover:underline">Apple Store Account</a></li>
                             <li><a href="" class="text-gray-900 hover:underline">iCloud.com</a></li>
@@ -207,6 +289,8 @@
 });
 
     </script>
+
+
    
 </body>
 

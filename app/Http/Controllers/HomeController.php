@@ -1,18 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
- 
+
 use App\Models\Alasan;
 use App\Models\Berita;
- 
+use App\Models\KategoriBerita;
 use App\Models\KategoriProduk;
- 
+
 
 use App\Models\Produk;
 use App\Models\Visitor;
 use App\Models\Slider;
 use App\Models\Testimoni;
- 
+
 use App\Models\User;
 use App\Models\Video;
 use Illuminate\Http\Request;
@@ -27,18 +27,18 @@ class HomeController extends Controller
         $title = "Halaman Utama";
         $subtitle = "Menu Utama";
         $agent = new Agent(); // Buat instance untuk mengurai user-agent
-    
+
         // Simpan visitor
         $ip_address = $_SERVER['REMOTE_ADDR'];
         $visit_time = date('Y-m-d H:i:s');
         $session_id = session_id(); // Ambil ID sesi
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
-    
+
         // Ambil informasi tentang perangkat dan OS
         $device = $agent->device(); // Nama perangkat (misalnya, iPhone, Android)
         $platform = $agent->platform(); // Nama OS (misalnya, Windows, iOS)
         $browser = $agent->browser(); // Nama browser (misalnya, Chrome, Safari)
-    
+
         Visitor::create([
             'ip_address' => $ip_address,
             'visit_time' => $visit_time,
@@ -48,7 +48,7 @@ class HomeController extends Controller
             'platform' => $platform,
             'browser' => $browser,
         ]);
-    
+
         // Gunakan eager loading untuk produk dan produk_diskon
         $produk = Produk::with(['kategoriProduk'])
             ->where('status', 'Aktif')
@@ -59,66 +59,28 @@ class HomeController extends Controller
             ->orderBy('urutan')
             ->take(12)
             ->get();
-    
+
         $produk_diskon = Produk::with(['kategoriProduk'])
             ->where('status_diskon', 'Aktif')
             ->orderBy('urutan')
             ->take(6)
             ->get();
-    
+
         $alasan = Alasan::all();
         $testimoni = Testimoni::all();
         $slider = Slider::all();
         $kategori_produk = KategoriProduk::all();
-    
+
         return view('front.home', compact('slider', 'title', 'subtitle', 'kategori_produk', 'produk', 'alasan', 'testimoni', 'produk_diskon'));
     }
-    
 
-    public function produk(){
-        $title = "Halaman Produk";
-        $subtitle = "Menu Produk";
-        $kategori_produk = KategoriProduk::all();
-        $produk = Produk::with('kategoriProduk')->orderBy('id', 'desc')->paginate(10);
-        return view('front.produk', compact('title', 'subtitle', 'produk', 'kategori_produk'));
-    }
-
-    public function informasi()
-    {
-        $title = "Halaman Informasi";
-        $subtitle = "Menu Informasi";
-
-        $berita = Berita::with('kategoriBerita')->orderBy('id', 'desc')->paginate(10);
-
-        return view('front.informasi', compact('title', 'subtitle', 'berita'));
-    }
-
-
-    public function informasi_detail($slug)
-    {
-        $title = "Halaman Detail Informasi";
-        $subtitle = "Menu Detail Informasi";
-        $berita = Berita::where('slug', $slug)->firstOrFail();
-        return view('front.informasi_detail', compact('berita', 'title', 'subtitle'));
-    }
-
-    public function video()
-    {
-        $title = "Halaman Video";
-        $subtitle = "Menu Video";
-
-        $video = Video::orderBy('urutan', 'asc')->get();
-
-
-        return view('front.video', compact('title', 'subtitle', 'video'));
-    }
 
     public function produk_sale(Request $request)
     {
         $title = "Halaman Produk";
         $subtitle = "Menu Produk";
         $kategori_produk = KategoriProduk::orderBy('urutan', 'asc')->get();
-        
+
         $query = Produk::with('kategoriProduk')
             ->where('produk.status', 'Aktif');
 
@@ -127,20 +89,20 @@ class HomeController extends Controller
             $query->where(function ($query) use ($keyword) {
                 $query->where('produk.nama_produk', 'LIKE', '%' . $keyword . '%')
                     ->orWhere('produk.deskripsi', 'LIKE', '%' . $keyword . '%')
-                    ->orWhereHas('kategoriProduk', function ($query) use ($keyword) { 
+                    ->orWhereHas('kategoriProduk', function ($query) use ($keyword) {
                         $query->where('nama_kategori_produk', 'LIKE', '%' . $keyword . '%');
                     });
             });
         }
-        
+
         if ($request->has('kategori_id')) {
             $kategoriId = $request->kategori_id;
             $query->where('produk.kategori_produk_id', $kategoriId);
         }
-        
+
         if ($request->has('sortSelect')) {
             $sortSelect = $request->sortSelect;
-        
+
             switch ($sortSelect) {
                 case 'termurah':
                     $query->orderByRaw('CAST(produk.harga_jual AS UNSIGNED) ASC');
@@ -148,13 +110,13 @@ class HomeController extends Controller
                 case 'termahal':
                     $query->orderByRaw('CAST(produk.harga_jual AS UNSIGNED) DESC');
                     break;
-                case 'terlaris': 
+                case 'terlaris':
                     break;
                 default:
                     break;
             }
         }
-        
+
         // Proses pengacakan produk
         if ($request->has('random')) {
             $produk = $query->inRandomOrder()->paginate(10);
@@ -162,12 +124,9 @@ class HomeController extends Controller
             // Lakukan paginasi dengan 10 item per halaman
             $produk = $query->paginate(12);
         }
-        
+
         return view('front.produk', compact('title', 'subtitle', 'kategori_produk', 'produk'));
     }
-    
-    
-
 
     public function produk_sale_detail($slug)
     {
@@ -178,100 +137,39 @@ class HomeController extends Controller
         return view('front.produk_detail', compact('produk', 'kategori_produk', 'title', 'subtitle'));
     }
 
-
-    public function toko(Request $request)
-    {
-        $title = "Halaman Toko";
-        $subtitle = "Menu Toko";
-    
-        // Ambil query awal untuk pengguna dengan role "pengguna" dan status "Aktif"
-        $query = User::where('role', 'pengguna')->where('status', 'Aktif');
-    
-        // Proses pencarian berdasarkan keyword
-        if ($request->has('keyword')) {
-            $keyword = $request->keyword;
-            $query->where(function ($query) use ($keyword) {
-                $query->where('name', 'LIKE', '%' . $keyword . '%')
-                    ->orWhere('description', 'LIKE', '%' . $keyword . '%');
-            });
-        }
-    
-        // Proses pengurutan berdasarkan pilihan pengguna
-        if ($request->has('sortSelect')) {
-            $sortSelect = $request->sortSelect;
-    
-            switch ($sortSelect) {
-                case 'newest':
-                    $query->orderBy('id', 'desc'); // Urutkan berdasarkan ID terbaru
-                    break;
-                case 'oldest':
-                    $query->orderBy('id', 'asc'); // Urutkan berdasarkan ID terlama
-                    break;
-                case 'ratings':
-                    // Tambahkan logika untuk pengurutan berdasarkan rating
-                    // Contoh: $query->orderBy('rating', 'desc');
-                    break;
-                case 'sales':
-                    // Tambahkan logika untuk pengurutan berdasarkan penjualan
-                    // Contoh: $query->orderBy('sales', 'desc');
-                    break;
-                default:
-                    // Default sorting jika tidak ada pilihan yang dipilih
-                    break;
-            }
-        }
-    
-        // Proses pengacakan pengguna
-        if ($request->has('random')) {
-            $users = $query->inRandomOrder()->paginate(10);
-        } else {
-            // Lakukan paginasi dengan 10 item per halaman
-            $users = $query->paginate(10);
-        }
-    
-        return view('front.toko', compact('title', 'subtitle', 'users'));
-    }
-    
-
-    // HomeController.php
-    public function toko_detail($user)
-    {
-        $users = User::where('user', $user)->firstOrFail();
-        $related_products = $users->produk()->paginate(8); // 8 produk per halaman
-    
-        // Menggunakan nama pengguna untuk title dan subtitle
-        $title = $users->name . " | Halaman Toko Detail";
-        $subtitle = "Menu Toko " . $users->name;
-    
-        return view('front.toko_detail', compact('users', 'related_products', 'title', 'subtitle'));
-    }
-    public function produk_detail() {
-            
-            return view('front.produk.detail');
-    }
     public function location() {
-            
+
             return view('front.location');
     }
     public function service() {
-            
+
             return view('front.service');
     }
     public function feature() {
-            
+
             return view('front.feature');
     }
     public function promo() {
-            
+
             return view('front.promo');
     }
     public function blog() {
-            
-            return view('front.blog.index');
+        $title = "Halaman Berita";
+        $subtitle = "Menu Berita";
+        $berita = Berita::orderBy('urutan', 'asc')->paginate(10); // Batasi jumlah berita per halaman
+        $kategoriBerita = KategoriBerita::all();
+    
+        return view('front.blog.index', compact('title', 'subtitle', 'berita', 'kategoriBerita'));
     }
-    public function blog_detail() {
-            
-            return view('front.blog.detail');
+    
+    
+    public function blog_detail($slug) {
+        $title = "Halaman Berita Detail";
+        $subtitle = "Menu Berita Detail";
+        $berita = Berita::where('slug', $slug)->firstOrFail();
+        $kategoriBerita = KategoriBerita::all(); // Ambil semua kategori berita
+        return view('front.blog.detail', compact('berita', 'title', 'subtitle','kategoriBerita'));
     }
- 
+    
+
 }

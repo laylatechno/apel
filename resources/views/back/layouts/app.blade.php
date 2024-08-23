@@ -242,6 +242,24 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="/menu" class="nav-link <?php echo $currentPath == '/menu' ? 'active' : ''; ?>">
+                                    <i class="nav-icon fas fa-bars"></i>
+
+                                    <p>
+                                        Menu
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/submenu" class="nav-link <?php echo $currentPath == '/submenu' ? 'active' : ''; ?>">
+                                    <i class="nav-icon fas fa-layer-group"></i>
+
+                                    <p>
+                                        Submenu
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="/info" class="nav-link <?php echo $currentPath == '/info' ? 'active' : ''; ?>">
                                     <i class="nav-icon fas fa-info"></i>
 

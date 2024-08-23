@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
+use App\Models\SubMenu;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class MenuController extends Controller
+class SubmenuController extends Controller
 {
-    /**
+     /**
      * Display a listing of the resource.
      */
     public function index()
@@ -16,7 +16,8 @@ class MenuController extends Controller
         $title = 'Menu';
         $subtitle = "Halaman Menu";
         $menu = Menu::all();
-        return view('back.menu.index', compact('title', 'menu','subtitle'));
+        $submenu = SubMenu::all();
+        return view('back.submenu.index', compact('title', 'menu','subtitle','submenu'));
     }
 
     /**
@@ -35,14 +36,18 @@ class MenuController extends Controller
         $request->validate([
             'name' => 'required',
             'slug' => 'required|unique:menus',
+            'menu_id' => 'required|exists:menus,id',
 
         ],[
             'name.required' => 'Nama menu harus diisi',
             'slug.required' => 'Slug harus diisi',
             'slug.unique' => 'Slug sudah ada',
+            'menu_id.required' => 'Menu harus diisi',
+            'menu_id.exists' => 'Menu tidak ditemukan',
+
         ]);
 
-        Menu::create($request->all());
+        SubMenu::create($request->all());
         return redirect()->route('menu.index')->with('success', 'Menu berhasil ditambahkan');
         $id = Auth::id();
 
@@ -65,8 +70,8 @@ class MenuController extends Controller
      */
     public function edit(string $id)
     {
-        $menu = Menu::find($id);
-        return response()->json($menu);
+        $submenu = Submenu::find($id);
+        return response()->json($submenu);
     }
 
     /**
@@ -77,14 +82,18 @@ class MenuController extends Controller
         
         $request->validate([
             'name' => 'required',
-            'slug' => 'required|unique:menus,slug,'.$id,
+            'slug' => 'required|unique:menus',
+            'menu_id' => 'required|exists:menus,id',
+
         ],[
             'name.required' => 'Nama menu harus diisi',
             'slug.required' => 'Slug harus diisi',
             'slug.unique' => 'Slug sudah ada',
-        ]);
+            'menu_id.required' => 'Menu harus diisi',
+            'menu_id.exists' => 'Menu tidak ditemukan',
 
-        $menu = Menu::find($id);
+        ]);
+        $menu = SubMenu::find($id);
         $menu->update($request->all());
         return redirect()->route('menu.index')->with('success', 'Menu berhasil diubah');
         $id = Auth::id();
@@ -97,7 +106,7 @@ class MenuController extends Controller
      */
     public function destroy(string $id)
     {
-        $menu = Menu::find($id);
+        $menu = SubMenu::find($id);
         $menu->delete();
         return redirect()->route('menu.index')->with('success', 'Menu berhasil dihapus');
         $id = Auth::id();

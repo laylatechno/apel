@@ -23,17 +23,19 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\InformasiController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProfilPenggunaController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RegisterMemberController;
 use App\Http\Controllers\SocialiteController;
+use App\Http\Controllers\SubmenuController;
 use App\Http\Controllers\TransaksiController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/produk_sale', [HomeController::class, 'produk_sale'])->name('home.produk');
+Route::get('/produk_sale', [HomeController::class, 'produk_sale'])->name('product');
 Route::get('/location', [HomeController::class, 'location'])->name('location');
 Route::get('/service', [HomeController::class, 'service'])->name('service');
-Route::get('/feature', [HomeController::class, 'feature'])->name('feature');
+Route::get('/feature', [HomeController::class, 'feature'])->name('features');
 Route::get('/promo', [HomeController::class, 'promo'])->name('promo');
 Route::get('/produk/{slug}', [HomeController::class, 'produk_detail'])->name('produk.produk_detail');
 Route::get('/informasi', [HomeController::class, 'informasi']);
@@ -136,6 +138,11 @@ Route::middleware(['auth', 'checkRole:administrator'])->group(function () {
     // Info
     Route::resource('info', InformasiController::class);
     Route::resource('transaksi', TransaksiController::class);
+// menu dan sub menu
+    Route::resource('menu', MenuController::class);
+    Route::resource('submenu', SubmenuController::class);
+    Route::get('datatables/menu', [MenuController::class, 'getMenuDatatables'])->name('datatables.menu');
+    Route::get('datatables/submenu', [SubMenuController::class, 'getSubMenuDatatables'])->name('datatables.sub_menu');
 });
 
 // Route untuk pengguna biasa

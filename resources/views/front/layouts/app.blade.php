@@ -123,38 +123,25 @@ ul#nav-list .dropdown li:hover {
             <img src="/upload/profil/{{ $profil->gambar }}" alt="logo" width="80px">
         </div>
         <ul id="nav-list" class="relative">
+            @php
+                $menu = App\Models\Menu::all();
+                $submenu = App\Models\SubMenu::all();
+            @endphp
+            @foreach ($menu as $m )
             <li> 
-                <a href="{{route('home.produk')}}" class="hover:underline hover:text-gray-700 hover:transition duration-500">Product</a> 
+                <a href="{{route($m->slug)}}" class="hover:underline hover:text-gray-700 hover:transition duration-500">{{$m->name}}</a> 
                 <!-- Dropdown for Product -->
+                @foreach ($submenu as $sm)
+                @if ($sm->menu_id == $m->id)
                 <ul class="dropdown hidden absolute bg-white shadow-lg rounded">
-                    <li><a href="#" class="block px-4 -ml-10 py-2 hover:bg-gray-100">Sub Product 1</a></li>
-                    <li><a href="#" class="block px-4 -ml-10 py-2 hover:bg-gray-100">Sub Product 2</a></li>
-                    <li><a href="#" class="block px-4 -ml-10 py-2 hover:bg-gray-100">Sub Product 3</a></li>
+                    <li><a href="{{$sm->slug}}" class="block px-4 -ml-10 py-2 hover:bg-gray-100">{{$sm->name}}</a></li>
                 </ul>
+                @endif
+                @endforeach
             </li>
-            <li> 
-                <a href="{{route('service')}}" class="hover:underline hover:text-gray-700 hover:transition duration-500">Services</a>
-                <ul class="dropdown hidden absolute bg-white shadow-lg rounded">
-                    <li><a href="{{route('service')}}" class="block px-4 -ml-10 py-2 hover:bg-gray-100">Perbaikan Iphone</a></li>
-                    <li><a href="{{route('service')}}" class="block px-4 -ml-10 py-2 hover:bg-gray-100">Perbaikan Mac</a></li>
-                    <li><a href="{{route('service')}}" class="block px-4 -ml-10 py-2 hover:bg-gray-100">Perbaikan Ipad</a></li>
-                </ul>
-            </li> 
-            </li>
-            <li> 
-                <a href="{{route('feature')}}" class="hover:underline hover:text-gray-700 hover:transition duration-500">Features</a> 
-                <ul class="dropdown hidden absolute bg-white shadow-lg rounded">
-                    <li><a href="{{route('service')}}" class="block px-4 -ml-10 py-2 hover:bg-gray-100">Tukar Tambah</a></li>
-                    <li><a href="{{route('service')}}" class="block px-4 -ml-10 py-2 hover:bg-gray-100">Jual Beli Second</a></li>
-                    </ul>
-            </li>
-            <li> 
-                <a href="{{route('promo')}}" class="hover:underline hover:text-gray-700 hover:transition duration-500">Promo</a> 
-                <ul class="dropdown hidden absolute bg-white shadow-lg rounded">
-                    <li><a href="{{route('service')}}" class="block px-4 -ml-10 py-2 hover:bg-gray-100">Promo Bulan Ini</a></li>
-                    <li><a href="{{route('service')}}" class="block px-4 -ml-10 py-2 hover:bg-gray-100">Promo Membership</a></li>
-                </ul>
-            </li>
+                
+            @endforeach
+         
             <li> 
                 <a href="{{route('location')}}" class="hover:underline hover:text-gray-700 hover:transition duration-500">Location</a> 
             </li>
@@ -243,7 +230,7 @@ ul#nav-list .dropdown li:hover {
     <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Search</h2>
-        <form action="{{route('home.produk')}}" method="get" >
+        <form action="{{route('product')}}" method="get" >
             <input type="text" id="searchInput" name="keyword" placeholder="Search here..." autofocus>
         </form>
     </div>

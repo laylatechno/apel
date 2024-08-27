@@ -57,7 +57,7 @@
                                 <b>Instagram</b> <a class="float-right"><input type="text" class="form-control"
                                         id="instagram" name="instagram" value="{{ $data->instagram }}"></a>
                             </li>
-                            <li class="list-group-item">
+                            {{-- <li class="list-group-item">
                                 <b>Tiktok</b> <a class="float-right"><input type="text" class="form-control"
                                         id="tiktok" name="tiktok" value="{{ $data->tiktok }}"></a>
                             </li>
@@ -72,12 +72,12 @@
                             <li class="list-group-item">
                                 <b>Tokopedia</b> <a class="float-right"><input type="text" class="form-control"
                                         id="tokopedia" name="tokopedia" value="{{ $data->tokopedia }}"></a>
-                            </li>
+                            </li> --}}
                             <li class="list-group-item">
                                 <b>Website</b> <a class="float-right"><input type="text" class="form-control"
                                         id="website" name="website" value="{{ $data->website }}"></a>
                             </li>
-                            <li class="list-group-item">
+                            {{-- <li class="list-group-item">
                                 <b>Youtube</b> <a class="float-right"><input type="text" class="form-control"
                                         id="youtube" name="youtube" value="{{ $data->youtube }}"></a>
                             </li>
@@ -88,7 +88,7 @@
                             <li class="list-group-item">
                                 <b>Link lain</b> <a class="float-right"><input type="text" class="form-control"
                                         id="link" name="link" value="{{ $data->link }}"></a>
-                            </li>
+                            </li> --}}
 
 
                         </ul>
@@ -185,20 +185,20 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                            {{-- <div class="form-group row">
                                 <label for="description" class="col-sm-2 col-form-label">Deskripsi</label>
                                 <div class="col-sm-10">
                                     <textarea name="description" class="form-control" id="description" cols="30" rows="4">{{ $data->description }}</textarea>
                                 </div>
-                            </div>
-                            <div class="form-group row">
+                            </div> --}}
+                            {{-- <div class="form-group row">
                                 <label for="maps" class="col-sm-2 col-form-label">Maps</label>
                                 <div class="col-sm-10">
                                     <textarea name="maps" class="form-control" id="maps" cols="30" rows="3">{{ $data->maps }}</textarea>
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <div class="form-group row">
+                            {{-- <div class="form-group row">
                                 <div class="col-sm-10 offset-sm-2">
                                     @if ($data->maps)
                                         <a href="{{ $data->maps }}" class="btn btn-primary" target="_blank">
@@ -210,7 +210,7 @@
                                         </a>
                                     @endif
                                 </div>
-                            </div>
+                            </div> --}}
 
 
                             <button type="submit" class="btn btn-success" style="color:white;"><i class="fas fa-save"></i>
@@ -223,7 +223,7 @@
                         </div>
                         <!-- /.tab-pane -->
 
-                       
+
 
                         <div class="tab-pane" id="display">
                             <form action="{{ route('profil.update_display_pengguna', $data->id) }}" method="post" enctype="multipart/form-data">
@@ -241,7 +241,7 @@
                                 <!-- timeline item -->
                                 <div>
 
-                                  
+
                                     <div class="timeline-item">
 
 
@@ -305,7 +305,7 @@
                                 <!-- END timeline item -->
 
 
-
+{{--
                                 <!-- timeline time label -->
                                 <div class="time-label">
                                     <span class="bg-warning">
@@ -338,7 +338,7 @@
 
 
 
-
+ --}}
 
 
 
@@ -360,7 +360,7 @@
                     </div>
                     <!-- /.tab-content -->
 
-                  
+
                 </div><!-- /.card-body -->
             </div>
             <!-- /.card -->

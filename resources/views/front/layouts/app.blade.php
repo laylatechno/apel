@@ -468,14 +468,10 @@
             class="globalnav-item globalnav-item-apple">
             <a href="/" data-globalnav-item-name="apple" data-analytics-title="apple home"
               aria-label="Apple" class="globalnav-link globalnav-link-apple">
-              <img src="/upload/profil/{{ $profil->gambar }}" alt="logo" width="80px">
+              <img src="/upload/profil/{{ $profil->gambar }}" alt="logo" width="80px" class="hidden md:block">
 
               <span class="globalnav-image-compact globalnav-link-image">
-                <svg height="48" viewBox="0 0 17 48" width="17" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="m15.5752 19.0792a4.2055 4.2055 0 0 0 -2.01 3.5376 4.0931 4.0931 0 0 0 2.4908 3.7542 9.7779 9.7779 0 0 1 -1.2755 2.6351c-.7941 1.1431-1.6244 2.2862-2.8878 2.2862s-1.5883-.734-3.0443-.734c-1.42 0-1.9252.7581-3.08.7581s-1.9611-1.0589-2.8876-2.3584a11.3987 11.3987 0 0 1 -1.9373-6.1487c0-3.61 2.3464-5.523 4.6566-5.523 1.2274 0 2.25.8062 3.02.8062.734 0 1.8771-.8543 3.2729-.8543a4.3778 4.3778 0 0 1 3.6822 1.841zm-6.8586-2.0456a1.3865 1.3865 0 0 1 -.2527-.024 1.6557 1.6557 0 0 1 -.0361-.337 4.0341 4.0341 0 0 1 1.0228-2.5148 4.1571 4.1571 0 0 1 2.7314-1.4078 1.7815 1.7815 0 0 1 .0361.373 4.1487 4.1487 0 0 1 -.9867 2.587 3.6039 3.6039 0 0 1 -2.5148 1.3236z">
-                  </path>
-                </svg>
+              
               </span>
               <span class="globalnav-link-text">Apple</span>
             </a>
@@ -544,6 +540,7 @@
                                 type="text"
                                 placeholder="Cari Nama Product"
                                 aria-label="Search"
+                                name="keyword"
                                 autocorrect="off"
                                 autocapitalize="off"
                                 autocomplete="off"
@@ -570,7 +567,7 @@
 
           <li id="globalnav-bag" data-analytics-region="bag" class="globalnav-item globalnav-bag">
             <div class="globalnav-bag-wrapper">
-              <a role="button" id="globalnav-menubutton-link-bag" href="bag.html" aria-label="Shopping Bag"
+              <a role="button" id="globalnav-menubutton-link-bag" href="https://wa.me/{{ $profil->no_wa }}" aria-label="Shopping Bag"
                 data-globalnav-item-name="bag" data-topnav-flyout-trigger-regular="true"
                 data-topnav-flyout-trigger-compact="true" data-analytics-title="open - bag"
                 class="globalnav-link globalnav-link-bag">
@@ -579,11 +576,8 @@
  
                 </span>
                 <span class="globalnav-image-compact">
-                  <svg height="48" viewbox="0 0 17 48" width="17" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="m13.4575 16.9268h-1.1353a3.8394 3.8394 0 0 0 -7.6444 0h-1.1353a2.6032 2.6032 0 0 0 -2.6 2.6v8.9232a2.6032 2.6032 0 0 0 2.6 2.6h9.915a2.6032 2.6032 0 0 0 2.6-2.6v-8.9231a2.6032 2.6032 0 0 0 -2.6-2.6001zm-4.9575-2.2768a2.658 2.658 0 0 1 2.6221 2.2764h-5.2442a2.658 2.658 0 0 1 2.6221-2.2764zm6.3574 13.8a1.4014 1.4014 0 0 1 -1.4 1.4h-9.9149a1.4014 1.4014 0 0 1 -1.4-1.4v-8.9231a1.4014 1.4014 0 0 1 1.4-1.4h9.915a1.4014 1.4014 0 0 1 1.4 1.4z">
-                    </path>
-                  </svg>
+              <img src="/upload/profil/{{ $profil->gambar }}" alt="logo" width="80px">
+               
                 </span>
               </a>
               <span aria-hidden="true" data-analytics-title="open - bag" class="globalnav-bag-badge"><span
@@ -693,21 +687,7 @@
       Design By {{ $profil->nama_perusahaan }} </p>
   </div>
   </div>
-  <script>
-    let nav_list = document.getElementById('nav-list')
-    let openMenu = document.querySelector('.menuopen')
-    let cross = document.querySelector('.cross')
-    openMenu.addEventListener('click', () => {
-      nav_list.style.opacity = '100%'
-      openMenu.style.display = 'none'
-    })
-    cross.addEventListener('click', () => {
-      nav_list.style.opacity = '0%';
-      setTimeout(() => {
-        openMenu.style.display = 'block'
-      }, 400)
-    })
-  </script>
+ 
   <!-- jquery cdn -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>

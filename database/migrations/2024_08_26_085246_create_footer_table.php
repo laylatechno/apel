@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('video', function (Blueprint $table) {
+        Schema::create('footer', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_video');
-            $table->text('deskripsi')->nullable();
-            $table->string('gambar')->nullable();
+            $table->string('nama_footer');
             $table->string('link')->nullable();
+            $table->string('kategori')->nullable();
             $table->string('urutan')->nullable();
             $table->timestamps();
         });
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('video');
+        Schema::dropIfExists('footer');
     }
 };

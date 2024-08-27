@@ -22,6 +22,7 @@ use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\FooterController;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProfilPenggunaController;
@@ -83,11 +84,11 @@ Route::put('/profil_pengguna/update_display_pengguna/{id}', [ProfilPenggunaContr
         Route::post('/produk/upload-gambar/{id}', [ProdukController::class, 'uploadGambar'])->name('produk.upload-gambar');
         Route::get('/produk/{produk}/gambar', [ProdukController::class, 'getGambar'])->name('produk.gambar.get');
         Route::delete('/produk/gambar/{id}', [ProdukController::class, 'deleteGambar'])->name('produk.delete.gambar');
-    
 
 
 
- 
+
+
 Route::get('/auth/redirect', [SocialiteController::class,'redirect']);
 Route::get('/auth/google/callback', [SocialiteController::class,'callback']);
 
@@ -133,7 +134,7 @@ Route::middleware(['auth', 'checkRole:administrator'])->group(function () {
     Route::resource('testimoni', TestimoniController::class);
 
     // Video
-    Route::resource('video', VideoController::class);
+    Route::resource('footer', FooterController::class);
 
     // Info
     Route::resource('info', InformasiController::class);

@@ -151,7 +151,7 @@
                             </li>
 
                             <li class="nav-header">Master</li>
-                            <li class="nav-item 
+                            <li class="nav-item
                         <?php echo strpos($currentPath, '/kategori_produk') !== false || strpos($currentPath, '/produk') !== false ? 'menu-open active' : ''; ?> ">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-list"></i>
@@ -178,7 +178,7 @@
 
                                 </ul>
                             </li>
-                            <li class="nav-item 
+                            <li class="nav-item
                         <?php echo strpos($currentPath, '/kategori_berita') !== false || strpos($currentPath, '/berita') !== false ? 'menu-open active' : ''; ?> ">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-blog"></i>
@@ -205,7 +205,7 @@
 
                                 </ul>
                             </li>
-                            <li class="nav-item 
+                            <li class="nav-item
                         <?php echo strpos($currentPath, '/kategori_galeri') !== false || strpos($currentPath, '/galeri') !== false ? 'menu-open active' : ''; ?> ">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-film"></i>
@@ -295,6 +295,15 @@
                                     </p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="/footer" class="nav-link <?php echo $currentPath == '/footer' ? 'active' : ''; ?>">
+                                    <i class="nav-icon fas fa-book"></i>
+
+                                    <p>
+                                        Footer
+                                    </p>
+                                </a>
+                            </li>
                             {{-- <li class="nav-item">
                                 <a href="/konsumen" class="nav-link <?php echo $currentPath == '/konsumen' ? 'active' : ''; ?>">
                                     <i class="nav-icon fas fa-users"></i>
@@ -313,7 +322,7 @@
                                     </p>
                                 </a>
                             </li> --}}
-                            
+
                             <li class="nav-header">Pengaturan</li>
                             <li class="nav-item">
                                 <a href="/profil/1/edit" class="nav-link <?php echo $currentPath == '/profil/1/edit' ? 'active' : ''; ?>">
@@ -394,7 +403,7 @@
                                 </p>
                             </a>
                         </li>
-                       
+
                         <li class="nav-item">
                             <a href="/profil_pengguna/{{ Auth::user()->id }}/edit" class="nav-link">
                                 <i class="nav-icon far fa-edit"></i>
@@ -453,8 +462,8 @@
     <!-- ./wrapper -->
 
     <footer class="main-footer" id="unhide">
-        All Rights Reserved by Layla Techno &copy; {{ date('Y') }}. Designed and Developed by <a
-            href="https://www.ltpresent.com">Layla Techno</a>.
+        All Rights Reserved by {{ $profil->nama_perusahaan }} &copy; {{ date('Y') }}. Designed and Developed by <a
+            href="https://www.ltpresent.com">{{ $profil->nama_perusahaan }}</a>.
         <div class="float-right d-none d-sm-inline-block">
             <b>Version</b> 1.0
         </div>

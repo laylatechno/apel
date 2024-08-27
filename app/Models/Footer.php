@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Video extends Model
+class Footer extends Model
 {
     use HasFactory;
-    protected $table = 'video';
+    protected $table = 'footer';
     protected $guarded = [];
-    
 
- 
+
+
 }

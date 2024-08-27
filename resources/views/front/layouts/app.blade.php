@@ -190,21 +190,24 @@
                         <ul class="space-y-2">
                             <li class="font-bold">Shop and Learn</li>
                             @foreach ($shopAndLearnFooters as $p)
-                                <li><a href="{{ $p->link }}" class="text-gray-900 hover:underline">{{ $p->nama_footer }}</a></li>
+                                <li><a href="{{ $p->link }}"
+                                        class="text-gray-900 hover:underline">{{ $p->nama_footer }}</a></li>
                             @endforeach
 
                         </ul>
                         <ul class="space-y-2">
                             <li class="font-bold">Company</li>
                             @foreach ($companyFooters as $p)
-                                <li><a href="{{ $p->link }}" class="text-gray-900 hover:underline">{{ $p->nama_footer }}</a></li>
+                                <li><a href="{{ $p->link }}"
+                                        class="text-gray-900 hover:underline">{{ $p->nama_footer }}</a></li>
                             @endforeach
                         </ul>
                         <ul class="space-y-2">
                             <li class="font-bold">Apple Values</li>
                             @foreach ($valueFooters as $p)
-                            <li><a href="{{ $p->link }}" class="text-gray-900 hover:underline">{{ $p->nama_footer }}</a></li>
-                        @endforeach
+                                <li><a href="{{ $p->link }}"
+                                        class="text-gray-900 hover:underline">{{ $p->nama_footer }}</a></li>
+                            @endforeach
                         </ul>
 
                     </div>
@@ -215,14 +218,15 @@
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <h2>Search</h2>
-                <form action="{{ route('product') }}" method="get">
-                    <input type="text" id="searchInput" name="keyword" placeholder="Search here..." autofocus>
+                <form action="{{ route('product') }}" method="get"><input type="text" id="searchInput"
+                        name="keyword" placeholder="Search here..." autofocus>
                 </form>
             </div>
         </div>
 
         <div class="footer">
-            <p>Copyright © {{ date('Y') }} {{ $profil->nama_perusahaan }}. All rights reserved. Privacy Policy Terms of Use Sales Policy Legal Site Map
+            <p>Copyright © {{ date('Y') }} {{ $profil->nama_perusahaan }}. All rights reserved. Privacy Policy
+                Terms of Use Sales Policy Legal Site Map
                 Design By {{ $profil->nama_perusahaan }} </p>
         </div>
     </div>

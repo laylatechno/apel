@@ -382,7 +382,7 @@ body {
   transform: translateY(-15px);
 }
 #searchInput{
-  /* input style */
+
   transform: translateY(40px);
 }
      </style>

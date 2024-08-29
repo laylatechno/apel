@@ -13,10 +13,7 @@ class MenuTableSedder extends Seeder
      */
     public function run(): void
     {
-        Menu::create([
-        'name' => 'product',
-        'slug' => 'product',
-        ]);
+   
         Menu::create([
         'name' => 'service',
         'slug' => 'service',
@@ -29,14 +26,7 @@ class MenuTableSedder extends Seeder
         'name' => 'promo',
         'slug' => 'promo',
         ]);
-        Menu::create([
-            'name' => 'location',
-            'slug' => 'location',
-            ]);
-        Menu::create([
-            'name' => 'blog',
-            'slug' => 'blog',
-            ]);
-        
+    
+       
     }
 }

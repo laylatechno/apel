@@ -32,25 +32,51 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
+        // Validasi input
         $request->validate([
             'name' => 'required',
             'slug' => 'required|unique:menus',
-
+            'header' => 'nullable',
+            'desc' => 'nullable',
+            'title_card_one' => 'nullable',
+            'title_card_two' => 'nullable',
+            'image_card_one' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
+            'image_card_two' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
+            'desc_card_one' => 'nullable',
+            'desc_card_two' => 'nullable',
         ],[
             'name.required' => 'Nama menu harus diisi',
             'slug.required' => 'Slug harus diisi',
             'slug.unique' => 'Slug sudah ada',
+            'image_card_one.image' => 'File harus berupa gambar',
+            'image_card_one.mimes' => 'File harus berupa gambar',
+            'image_card_one.max' => 'Ukuran gambar maksimal 5MB',
+            'image_card_two.image' => 'File harus berupa gambar',
+            'image_card_two.mimes' => 'File harus berupa gambar',
+            'image_card_two.max' => 'Ukuran gambar maksimal 5MB',
         ]);
-
-        Menu::create($request->all());
-        return redirect()->route('menu.index')->with('success', 'Menu berhasil ditambahkan');
+    
+        $data = $request->all();
+    
+        if($request->hasFile('image_card_one')){
+            $image_card_one = $request->file('image_card_one');
+            $image_card_one_name = time().'_'.$image_card_one->getClientOriginalName();
+            $image_card_one->move(public_path('upload/menu/cardone'), $image_card_one_name);
+            $data['image_card_one'] = $image_card_one_name;
+        }
+    
+        if($request->hasFile('image_card_two')){
+            $image_card_two = $request->file('image_card_two');
+            $image_card_two_name = time().'_'.$image_card_two->getClientOriginalName();
+            $image_card_two->move(public_path('upload/menu/cardtwo'), $image_card_two_name);
+            $data['image_card_two'] = $image_card_two_name;
+        }
+    
+        Menu::create($data);    
         $id = Auth::id();
-
-        $this->simpanLogHistori("Menambahkan menu", "Menambahkan menu", $id);
-
-
-       
+        return redirect()->route('menu.index')->with('success', 'Menu berhasil ditambahkan');
     }
+    
 
     /**
      * Display the specified resource.
@@ -75,21 +101,49 @@ class MenuController extends Controller
     public function update(Request $request, string $id)
     {
         
+        $menu = Menu::find($id);
         $request->validate([
             'name' => 'required',
-            'slug' => 'required|unique:menus,slug,'.$id,
+            'slug' => 'required|unique:menus,slug,'.$menu->id,
+            'header' => 'nullable',
+            'desc' => 'nullable',
+            'title_card_one' => 'nullable',
+            'title_card_two' => 'nullable',
+            'image_card_one' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
+            'image_card_two' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
+            'desc_card_one' => 'nullable',
+            'desc_card_two' => 'nullable',
         ],[
             'name.required' => 'Nama menu harus diisi',
             'slug.required' => 'Slug harus diisi',
             'slug.unique' => 'Slug sudah ada',
+            'image_card_one.image' => 'File harus berupa gambar',
+            'image_card_one.mimes' => 'File harus berupa gambar',
+            'image_card_one.max' => 'Ukuran gambar maksimal 5MB',
+            'image_card_two.image' => 'File harus berupa gambar',
+            'image_card_two.mimes' => 'File harus berupa gambar',
+            'image_card_two.max' => 'Ukuran gambar maksimal 5MB',
         ]);
-
-        $menu = Menu::find($id);
-        $menu->update($request->all());
-        return redirect()->route('menu.index')->with('success', 'Menu berhasil diubah');
+    
+        $data = $request->all();
+    
+        if($request->hasFile('image_card_one')){
+            $image_card_one = $request->file('image_card_one');
+            $image_card_one_name = time().'_'.$image_card_one->getClientOriginalName();
+            $image_card_one->move(public_path('upload/menu/cardone'), $image_card_one_name);
+            $data['image_card_one'] = $image_card_one_name;
+        }
+    
+        if($request->hasFile('image_card_two')){
+            $image_card_two = $request->file('image_card_two');
+            $image_card_two_name = time().'_'.$image_card_two->getClientOriginalName();
+            $image_card_two->move(public_path('upload/menu/cardtwo'), $image_card_two_name);
+            $data['image_card_two'] = $image_card_two_name;
+        }
+    
+        $menu->update($data);
         $id = Auth::id();
-
-        $this->simpanLogHistori("Mengubah menu", "Mengubah menu", $id);
+        return redirect()->route('menu.index')->with('success', 'Menu berhasil diubah');
     }
 
     /**

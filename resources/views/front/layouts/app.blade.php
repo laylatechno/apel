@@ -312,7 +312,7 @@
 
     .containernav .header.menu-opened {
       height: 100%;
-      background-color: #fafafc;
+      background-color: white;
       transition: all 0.3s ease-in, background 0.5s ease-in;
       transition-delay: 0.25s;
     }
@@ -483,18 +483,38 @@
             <div class="menu">
               <nav>
                 <ul>
+                <li class="navParent">
+                    <a href="{{route('product')}}">product</a>
+                    <div class="navChild">
+                    
+                        <div class="navChildContainer">
+                          <div class="wrapper w-full mt-3 " >
+
+                            <ul>
+                           
+                              <li>
+                                <a href="#" class="globalnav-submenu-link">Submenu1</a>
+                              </li>
+                             
+
+                            </ul>
+                          </divc>
+
+                      
+                      </div>
+                    </div>
+                  </li>
                   @php
                   $menu = App\Models\Menu::all();
                   $submenu = App\Models\SubMenu::all();
                   @endphp
                   @foreach ($menu as $m)
                   <li class="navParent">
-                    <a href="{{ route($m->slug) }}">{{ $m->name }}</a>
+                    <a href="/menu/{{$m->slug}}">{{ $m->name }}</a>
                     <div class="navChild">
-                      <div class="wrapper">
-
+                    
                         <div class="navChildContainer">
-                          <div>
+                          <div class="wrapper w-full mt-3 " >
 
                             <ul>
                               @foreach ($submenu as $sm)
@@ -506,13 +526,34 @@
                               @endforeach
 
                             </ul>
-                          </div>
+                          </divc>
 
-                        </div>
+                      
                       </div>
                     </div>
                   </li>
                   @endforeach
+                  <li class="navParent">
+                    <a href="{{route('location')}}">location</a>
+                    <div class="navChild">
+                    
+                        <div class="navChildContainer">
+                          <div class="wrapper w-full mt-3 " >
+
+                            <ul>
+                           
+                              <li>
+                                <a href="#" class="globalnav-submenu-link">Submenu1</a>
+                              </li>
+                             
+
+                            </ul>
+                          </divc>
+
+                      
+                      </div>
+                    </div>
+                  </li>
                   <li class="navParent ">
                     <a href="" id="search"><svg
                         xmlns="http://www.w3.org/2000/svg" width="15px" height="44px" viewbox="0 0 15 44">

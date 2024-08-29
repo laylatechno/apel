@@ -654,4 +654,63 @@
         });
     </script>
     {{-- PERINTAH DELETE DATA --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // Initialize event listeners for both image input fields
+    const imageInputs = [
+        { inputId: 'gambar', canvasId: 'preview_canvas', imageId: 'preview_image' },
+        { inputId: 'gambar_edit', canvasId: 'preview_canvas_edit', imageId: 'preview_image_edit' }
+    ];
+
+    imageInputs.forEach(item => {
+        const fileInput = document.getElementById(item.inputId);
+        fileInput.addEventListener('change', function() {
+            previewImage(fileInput, item.canvasId, item.imageId);
+        });
+    });
+
+    function previewImage(fileInput, canvasId, imageId) {
+        const previewCanvas = document.getElementById(canvasId);
+        const previewImage = document.getElementById(imageId);
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            const img = new Image();
+            img.src = e.target.result;
+
+            img.onload = function() {
+                const canvasContext = previewCanvas.getContext('2d');
+                const maxWidth = 200; // Max width for the image preview
+
+                const scaleFactor = maxWidth / img.width;
+                const newHeight = img.height * scaleFactor;
+
+                previewCanvas.width = maxWidth;
+                previewCanvas.height = newHeight;
+
+                canvasContext.drawImage(img, 0, 0, maxWidth, newHeight);
+
+                // Display the canvas and hide the image element
+                previewCanvas.style.display = 'block';
+                previewImage.style.display = 'none';
+            };
+        };
+
+        if (file) {
+            reader.readAsDataURL(file); // Read the selected file as a data URL
+        } else {
+            // Hide the canvas if no file is selected
+            previewImage.src = '';
+            previewCanvas.style.display = 'none';
+        }
+    }
+
+    // Set default dates for both date inputs
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('tanggal_posting').value = today;
+    document.getElementById('tanggal_posting_edit').value = today;
+});
+
+    </script>
 @endpush

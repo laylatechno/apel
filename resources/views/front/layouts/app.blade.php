@@ -468,7 +468,7 @@
             class="globalnav-item globalnav-item-apple">
             <a href="/" data-globalnav-item-name="apple" data-analytics-title="apple home"
               aria-label="Apple" class="globalnav-link globalnav-link-apple">
-              <img src="/upload/profil/{{ $profil->gambar }}" alt="logo" width="80px" class="hidden md:block">
+              <img src="/upload/profil/{{ $profil->gambar }}" alt="logo" width="80px" class="pt-3">
 
               <span class="globalnav-image-compact globalnav-link-image">
               
@@ -784,7 +784,7 @@
       };
     })();
   </script>
-
+  <script src="{{asset('js/main.built.js')}}"></script>
 
 </body>
 

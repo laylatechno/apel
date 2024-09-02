@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class SubMenu extends Model
 {
     use HasFactory;
-    protected $fillable = ['menu_id', 'name', 'slug'];
+    protected $fillable = ['menu_id', 'name', 'slug','content'];
 
     public function menu()
     {

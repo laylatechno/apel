@@ -40,6 +40,7 @@ Route::get('/location', [HomeController::class, 'location'])->name('location');
 // Route::get('/feature', [HomeController::class, 'feature'])->name('features');
 // Route::get('/promo', [HomeController::class, 'promo'])->name('promo');
 Route::get('/menu/{slug}', [HomeMenuController::class, 'menu'])->name('menu ');
+Route::get('/submenu/{slug}', [HomeMenuController::class, 'submenu'])->name('submenu');
 Route::get('/produk/{slug}', [HomeController::class, 'produk_detail'])->name('produk.produk_detail');
 Route::get('/informasi', [HomeController::class, 'informasi']);
 Route::get('/informasi/{slug}', [HomeController::class, 'informasi_detail'])->name('informasi.informasi_detail');

@@ -520,7 +520,7 @@
                               @foreach ($submenu as $sm)
                               @if ($sm->menu_id == $m->id)
                               <li>
-                                <a href="#" class="globalnav-submenu-link">{{ $sm->name }}</a>
+                                <a href="/submenu/{{$sm->slug}}" class="globalnav-submenu-link">{{ $sm->name }}</a>
                               </li>
                               @endif
                               @endforeach

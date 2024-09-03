@@ -95,7 +95,7 @@
             top: 0;
             left: 0;
             width: 100vw;
-            height: 30vh;
+            height: 35vh;
 
             z-index: -1;
             /* blur sisa hieght */
@@ -107,8 +107,8 @@
             .navChildContainer {
               display: flex;
               flex-wrap: wrap;
-              justify-content: start;
-              gap: 10rem;
+              /* justify-content: center; */
+              gap: 4rem;
               align-items: start;
               width: 100%;
               max-width: 1200px;
@@ -471,7 +471,7 @@
               <img src="/upload/profil/{{ $profil->gambar }}" alt="logo" width="80px" class="pt-3">
 
               <span class="globalnav-image-compact globalnav-link-image">
-              
+
               </span>
               <span class="globalnav-link-text">Apple</span>
             </a>
@@ -483,27 +483,44 @@
             <div class="menu">
               <nav>
                 <ul>
-                <li class="navParent">
-                    <a href="{{route('product')}}">product</a>
+                @php
+                    $categories = App\Models\KategoriProduk::all(); 
+                @endphp
+                  <li class="navParent">
+                    <a href="{{ route('product') }}">Product</a>
+
+                   
+
+
                     <div class="navChild">
-                    
-                        <div class="navChildContainer">
-                          <div class="wrapper w-full mt-3 " >
-
-                            <ul>
-                           
-                              <li>
-                                <a href="#" class="globalnav-submenu-link">Submenu1</a>
-                              </li>
-                             
-
-                            </ul>
-                          </divc>
-
-                      
-                      </div>
+                    <div class="navChildContainer">
+                    <div class="wrapper w-full mt-3 flex justify-start max-w-[1200px] mx-auto ">
+                      <ul>
+                        @foreach($categories as $category)
+                        <li>
+                          <a href="javascript:void(0);"  data-category-id="{{ $category->id }}"  class="globalnav-submenu-link">
+                            {{ $category->nama_kategori_produk }}
+                          </a>
+                        </li>
+                        @endforeach
+                      </ul>
+                      <ul id="product-list">
+                        <!-- Products will be loaded here via AJAX -->
+                        <a href=""> </a>
+                      </ul>
                     </div>
+</div>
+                      <div class="navChildContainer">
+                      
+                        
+                      </div>
+                      
+                    </div>
+                    
+                    
+                   
                   </li>
+
                   @php
                   $menu = App\Models\Menu::all();
                   $submenu = App\Models\SubMenu::all();
@@ -512,23 +529,21 @@
                   <li class="navParent">
                     <a href="/menu/{{$m->slug}}">{{ $m->name }}</a>
                     <div class="navChild">
-                    
-                        <div class="navChildContainer">
-                          <div class="wrapper w-full mt-3 " >
 
-                            <ul>
-                              @foreach ($submenu as $sm)
-                              @if ($sm->menu_id == $m->id)
-                              <li>
-                                <a href="/submenu/{{$sm->slug}}" class="globalnav-submenu-link">{{ $sm->name }}</a>
-                              </li>
-                              @endif
-                              @endforeach
+                      <div class="navChildContainer">
+                        <div class="wrapper w-full mt-3 ">
 
-                            </ul>
-                          </divc>
+                          <ul>
+                            @foreach ($submenu as $sm)
+                            @if ($sm->menu_id == $m->id)
+                            <li>
+                              <a href="/submenu/{{$sm->slug}}" class="globalnav-submenu-link">{{ $sm->name }}</a>
+                            </li>
+                            @endif
+                            @endforeach
 
-                      
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </li>
@@ -536,23 +551,23 @@
                   <li class="navParent">
                     <a href="{{route('location')}}">location</a>
                     <div class="navChild">
-                    
-                        <div class="navChildContainer">
-                          <div class="wrapper w-full mt-3 " >
 
-                            <ul>
-                           
-                              <li>
-                                <a href="#" class="globalnav-submenu-link">Submenu1</a>
-                              </li>
-                             
+                      <div class="navChildContainer">
+                        <div class="wrapper w-full mt-3 ">
 
-                            </ul>
+                          <ul>
+
+                            <li>
+                              <a href="#" class="globalnav-submenu-link">Submenu1</a>
+                            </li>
+
+
+                          </ul>
                           </divc>
 
-                      
+
+                        </div>
                       </div>
-                    </div>
                   </li>
                   <li class="navParent ">
                     <a href="" id="search"><svg
@@ -570,12 +585,12 @@
                           <form action="{{ route('product') }}" method="get" style="width: 100%;">
                             <div class="relative flex items-center w-full bg-gray-50 border-b border-gray-800 ">
                               <span class="absolute left-3 text-gray-500">
-                              <svg
-                        xmlns="http://www.w3.org/2000/svg" width="15px" height="44px" viewbox="0 0 15 44">
-                        <path
-                          d="M14.298,27.202l-3.87-3.87c0.701-0.929,1.122-2.081,1.122-3.332c0-3.06-2.489-5.55-5.55-5.55c-3.06,0-5.55,2.49-5.55,5.55 c0,3.061,2.49,5.55,5.55,5.55c1.251,0,2.403-0.421,3.332-1.122l3.87,3.87c0.151,0.151,0.35,0.228,0.548,0.228 s0.396-0.076,0.548-0.228C14.601,27.995,14.601,27.505,14.298,27.202z M1.55,20c0-2.454,1.997-4.45,4.45-4.45 c2.454,0,4.45,1.997,4.45,4.45S8.454,24.45,6,24.45C3.546,24.45,1.55,22.454,1.55,20z">
-                        </path>
-                      </svg>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg" width="15px" height="44px" viewbox="0 0 15 44">
+                                  <path
+                                    d="M14.298,27.202l-3.87-3.87c0.701-0.929,1.122-2.081,1.122-3.332c0-3.06-2.489-5.55-5.55-5.55c-3.06,0-5.55,2.49-5.55,5.55 c0,3.061,2.49,5.55,5.55,5.55c1.251,0,2.403-0.421,3.332-1.122l3.87,3.87c0.151,0.151,0.35,0.228,0.548,0.228 s0.396-0.076,0.548-0.228C14.601,27.995,14.601,27.505,14.298,27.202z M1.55,20c0-2.454,1.997-4.45,4.45-4.45 c2.454,0,4.45,1.997,4.45,4.45S8.454,24.45,6,24.45C3.546,24.45,1.55,22.454,1.55,20z">
+                                  </path>
+                                </svg>
                               </span>
                               <input
                                 type="text"
@@ -613,12 +628,12 @@
                 data-topnav-flyout-trigger-compact="true" data-analytics-title="open - bag"
                 class="globalnav-link globalnav-link-bag">
                 <span class="globalnav-image-regular">
-                <img src="{{ asset('themplete/front') }}/images/wa.png" width="16" class="mb-1" alt="shopping">
- 
+                  <img src="{{ asset('themplete/front') }}/images/wa.png" width="16" class="mb-1" alt="shopping">
+
                 </span>
                 <span class="globalnav-image-compact">
-              <img src="/upload/profil/{{ $profil->gambar }}" alt="logo" width="80px">
-               
+                  <img src="/upload/profil/{{ $profil->gambar }}" alt="logo" width="80px">
+
                 </span>
               </a>
               <span aria-hidden="true" data-analytics-title="open - bag" class="globalnav-bag-badge"><span
@@ -728,7 +743,7 @@
       Design By {{ $profil->nama_perusahaan }} </p>
   </div>
   </div>
- 
+
   <!-- jquery cdn -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
@@ -754,7 +769,7 @@
     $(function() {
       $(".navParent").hover(
         function() {
-          $(this).find('.navChild').stop().slideDown('slow').css('display', 'flex');
+          $(this).find('.navChild').stop().slideDown('slow').css('display', 'block');
 
           $('.main').slideDown('slow').css('filter', 'blur(10px)');
         },
@@ -784,8 +799,33 @@
       };
     })();
   </script>
-  <script src="{{asset('js/main.built.js')}}"></script>
+<script>
+  $(document).ready(function() {
+    $('a[data-category-id]').on('click', function() {
+      var categoryId = $(this).data('category-id'); 
 
+      console.log(categoryId); 
+
+      $.ajax({
+        url: `{{ route('product.category') }}`,
+        method: 'GET', 
+        data: {
+          category_id: categoryId,
+          _token: '{{ csrf_token() }}' 
+        },
+        success: function(response) {
+          $('#product-list').html(response); 
+        },
+        error: function(xhr) {
+          console.error(xhr.responseText); 
+        }
+      });
+    });
+  });
+</script>
+
+
+  @stack('js')
 </body>
 
 </html>

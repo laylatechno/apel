@@ -20,4 +20,16 @@ class AjaxController extends Controller
         return view('partials.filtered-products', compact('filteredProducts'))->render();
     
     }
+    public function productCategory(Request $request){
+
+        $categoryId = $request->input('category_id');
+
+        $products = Produk::where('kategori_produk_id', $categoryId)
+                          ->limit(4)
+                          ->get();
+        
+
+
+        return view('front.partials.products', compact('products'))->render();
+    }
 }

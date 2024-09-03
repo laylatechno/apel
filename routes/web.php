@@ -62,7 +62,8 @@ Route::post('/daftar_member', [RegisterMemberController::class, 'register'])->na
 Route::resource('log_histori', LogHistoriController::class);
 
 
-
+// ajax
+Route::get('/product/category', [AjaxController::class, 'productCategory'])->name('product.category');
 // Route::resource('/dashboard', DashboardController::class);
 // Route::resource('users', UserController::class);
 Route::resource('/dashboard', DashboardController::class)->names([
